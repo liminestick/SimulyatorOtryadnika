@@ -18,14 +18,13 @@ WindowManager:
         BoxLayout:
             orientation: 'vertical'
             size_hint: (0.5, None)
-            height: 400
-            spacing: 30
+            spacing: dp(15)
             pos_hint: {'center_x': 0.5, 'y': 0.1}  # Опускаем группу кнопок ниже
 
             Button:
                 id: new_game_button
                 size_hint_y: None
-                height: 100
+                height: dp(70)
                 background_normal: 'Images/buttons/newGame/button_normal.png'
                 background_down: 'Images/buttons/newGame/button_press.png'
                 on_press: root.change_button_image(self, self.background_normal, self.background_down)
@@ -34,7 +33,7 @@ WindowManager:
             Button:
                 id: continue_button
                 size_hint_y: None
-                height: 100
+                height: dp(70)
                 background_normal: 'Images/buttons/continue/button_normal.png'
                 background_down: 'Images/buttons/continue/button_press.png'
                 on_press: root.change_button_image(self, self.background_normal, self.background_down)
@@ -43,7 +42,7 @@ WindowManager:
             Button:
                 id: settings_button
                 size_hint_y: None
-                height: 100
+                height: dp(70)
                 background_normal: 'Images/buttons/settings/button_normal.png'
                 background_down: 'Images/buttons/settings/button_press.png'
                 on_press: root.change_button_image(self, self.background_normal, self.background_down)
@@ -53,7 +52,7 @@ WindowManager:
             Button:
                 id: exit_button
                 size_hint_y: None
-                height: 100
+                height: dp(70)
                 background_normal: 'Images/buttons/exit/button_normal.png'
                 background_down: 'Images/buttons/exit/button_press.png'
                 on_press: root.change_button_image(self, self.background_normal, self.background_down)

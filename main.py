@@ -4,9 +4,7 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 
-Config.set('graphics', 'width', '540')
-Config.set('graphics', 'height', '960')
-Config.set('graphics', 'resizable', '0')
+Config.set('kivy', 'show_cursor', 0)
 
 class MainWindow(Screen):
 
