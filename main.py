@@ -4,8 +4,6 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 
-Config.set('kivy', 'show_cursor', 0)
-
 class MainWindow(Screen):
 
     def change_button_image(self, button, normal, down):
