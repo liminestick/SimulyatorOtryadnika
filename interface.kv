@@ -1,5 +1,6 @@
 WindowManager:
     MainWindow:
+    GameWindow:
 
 <MainWindow>:
     FloatLayout:
@@ -58,3 +59,191 @@ WindowManager:
                 background_down: 'Images/buttons/exit/button_press.png'
                 on_press: root.change_button_image(self, self.background_normal, self.background_down)
                 on_release: root.change_button_image(self, self.background_normal, self.background_down)
+
+<GameWindow>:
+    name: 'GameWindow'
+
+    FloatLayout:
+
+        canvas:
+            Rectangle:
+                source: 'Images/backgrounds/game_start_background.png'
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 0.9, 0.1
+            pos_hint: {'x': 0.05, 'top': 0.95}
+
+            Image:
+                source: 'Images/labels/label_name.png'
+                size_hint_x: 0.4
+                size_hint_y: 0.7
+                size: self.texture_size
+
+            TextInput:
+                font_size: 20
+                background_color: 1, 1, 1, 1
+                foreground_color: 0, 0, 0, 1
+                size_hint_x: 0.6
+                size_hint_y: 0.7
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0, 1
+                    BoxShadow:
+                        inset: True
+                        pos: self.pos
+                        size: self.size
+                        offset: -5, 5
+                        border_radius: 0, 0, 0, 0
+                        blur_radius: 0
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 0.9, 0.1
+            pos_hint: {'x': 0.05, 'top': 0.85}
+
+            Image:
+                source: 'Images/labels/label_gender.png'
+                size_hint_x: 0.4
+                size_hint_y: 0.7
+                size: self.texture_size
+
+            TextInput:
+                font_size: 20
+                background_color: 1, 1, 1, 1
+                foreground_color: 0, 0, 0, 1
+                size_hint_x: 0.6
+                size_hint_y: 0.7
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0, 1
+                    BoxShadow:
+                        inset: True
+                        pos: self.pos
+                        size: self.size
+                        offset: -5, 5
+                        border_radius: 0, 0, 0, 0
+                        blur_radius: 0
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 0.9, 0.1
+            pos_hint: {'x': 0.05, 'top': 0.75}
+
+            Image:
+                source: 'Images/labels/label_age.png'
+                size_hint_x: 0.4
+                size_hint_y: 0.7
+                size: self.texture_size
+
+            TextInput:
+                font_size: 20
+                background_color: 1, 1, 1, 1
+                foreground_color: 0, 0, 0, 1
+                size_hint_x: 0.6
+                size_hint_y: 0.7
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0, 1
+                    BoxShadow:
+                        inset: True
+                        pos: self.pos
+                        size: self.size
+                        offset: -5, 5
+                        border_radius: 0, 0, 0, 0
+                        blur_radius: 0
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 0.9, 0.1
+            pos_hint: {'x': 0.05, 'top': 0.65}
+
+            Image:
+                source: 'Images/labels/label_profile.png'
+                size_hint_x: 0.4
+                size_hint_y: 0.7
+                size: self.texture_size
+
+            TextInput:
+                font_size: 20
+                background_color: 1, 1, 1, 1
+                foreground_color: 0, 0, 0, 1
+                size_hint_x: 0.6
+                size_hint_y: 0.7
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0, 1
+                    BoxShadow:
+                        inset: True
+                        pos: self.pos
+                        size: self.size
+                        offset: -5, 5
+                        border_radius: 0, 0, 0, 0
+                        blur_radius: 0
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 0.9, 0.1
+            pos_hint: {'x': 0.05, 'top': 0.55}
+
+            Image:
+                source: 'Images/labels/label_diffictly.png'
+                size_hint_x: 0.4
+                size_hint_y: 0.7
+                size: self.texture_size
+
+            TextInput:
+                font_size: 20
+                background_color: 1, 1, 1, 1
+                foreground_color: 0, 0, 0, 1
+                size_hint_x: 0.6
+                size_hint_y: 0.7
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0, 1
+                    BoxShadow:
+                        inset: True
+                        pos: self.pos
+                        size: self.size
+                        offset: -5, 5
+                        border_radius: 0, 0, 0, 0
+                        blur_radius: 0
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 0.9, 0.1
+            pos_hint: {'x': 0.05, 'top': 0.45}
+
+            Image:
+                source: 'Images/labels/label_brigade_name.png'
+                size_hint_x: 0.4
+                size_hint_y: 0.7
+                size: self.texture_size
+
+            TextInput:
+                font_size: 20
+                background_color: 1, 1, 1, 1
+                foreground_color: 0, 0, 0, 1
+                size_hint_x: 0.6
+                size_hint_y: 0.7
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0, 1
+                    BoxShadow:
+                        inset: True
+                        pos: self.pos
+                        size: self.size
+                        offset: -5, 5
+                        border_radius: 0, 0, 0, 0
+                        blur_radius: 0
+
+        Button:
+            id: new_game_button
+            size_hint_x: 0.7
+            size_hint_y: 0.1
+            background_normal: 'Images/buttons/startGame/button_normal.png'
+            background_down: 'Images/buttons/startGame/button_press.png'
+            pos_hint: {'center_x': 0.5, 'y': 0.1}
+
