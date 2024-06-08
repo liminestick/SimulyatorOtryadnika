@@ -3,6 +3,7 @@ WindowManager:
     GameWindow:
 
 <MainWindow>:
+    name: 'MainWindow'
     FloatLayout:
         canvas:
             Rectangle:
@@ -19,14 +20,14 @@ WindowManager:
         BoxLayout:
             orientation: 'vertical'
             size_hint: (0.6, None)
-            height: dp(400)
+            size_hint_y: 0.5
             spacing: dp(15)
             pos_hint: {'center_x': 0.5, 'y': 0.1}  # Опускаем группу кнопок ниже
 
             Button:
+                name: 'new_game'
                 id: new_game_button
-                size_hint_y: None
-                height: dp(70)
+                size_hint_y: 0.9
                 background_normal: 'Images/buttons/newGame/button_normal.png'
                 background_down: 'Images/buttons/newGame/button_press.png'
                 on_press: root.change_button_image(self, self.background_normal, self.background_down)
@@ -34,8 +35,7 @@ WindowManager:
 
             Button:
                 id: continue_button
-                size_hint_y: None
-                height: dp(70)
+                size_hint_y: 0.9
                 background_normal: 'Images/buttons/continue/button_normal.png'
                 background_down: 'Images/buttons/continue/button_press.png'
                 on_press: root.change_button_image(self, self.background_normal, self.background_down)
@@ -43,8 +43,7 @@ WindowManager:
 
             Button:
                 id: settings_button
-                size_hint_y: None
-                height: dp(70)
+                size_hint_y: 0.9
                 background_normal: 'Images/buttons/settings/button_normal.png'
                 background_down: 'Images/buttons/settings/button_press.png'
                 on_press: root.change_button_image(self, self.background_normal, self.background_down)
@@ -53,8 +52,7 @@ WindowManager:
 
             Button:
                 id: exit_button
-                size_hint_y: None
-                height: dp(70)
+                size_hint_y: 0.9
                 background_normal: 'Images/buttons/exit/button_normal.png'
                 background_down: 'Images/buttons/exit/button_press.png'
                 on_press: root.change_button_image(self, self.background_normal, self.background_down)
@@ -110,22 +108,12 @@ WindowManager:
                 size_hint_y: 0.7
                 size: self.texture_size
 
-            TextInput:
-                font_size: 40
-                background_color: 1, 1, 1, 1
-                foreground_color: 0, 0, 0, 1
+            Spinner:
+                id: gender_spinner
                 size_hint_x: 0.6
                 size_hint_y: 0.7
-                canvas.before:
-                    Color:
-                        rgba: 0, 0, 0, 1
-                    BoxShadow:
-                        inset: True
-                        pos: self.pos
-                        size: self.size
-                        offset: -5, 5
-                        border_radius: 0, 0, 0, 0
-                        blur_radius: 0
+                text: 'Мужской'  # Значение по умолчанию
+                values: ['Мужской', 'Женский']  # Варианты выбора
 
         BoxLayout:
             orientation: 'horizontal'
@@ -166,22 +154,12 @@ WindowManager:
                 size_hint_y: 0.7
                 size: self.texture_size
 
-            TextInput:
-                font_size: 40
-                background_color: 1, 1, 1, 1
-                foreground_color: 0, 0, 0, 1
+            Spinner:
+                id: profile_spinner
                 size_hint_x: 0.6
                 size_hint_y: 0.7
-                canvas.before:
-                    Color:
-                        rgba: 0, 0, 0, 1
-                    BoxShadow:
-                        inset: True
-                        pos: self.pos
-                        size: self.size
-                        offset: -5, 5
-                        border_radius: 0, 0, 0, 0
-                        blur_radius: 0
+                text: 'ССО'
+                values: ['ССО', 'СПО', 'СОП']
 
         BoxLayout:
             orientation: 'horizontal'
@@ -194,22 +172,19 @@ WindowManager:
                 size_hint_y: 0.7
                 size: self.texture_size
 
-            TextInput:
-                font_size: 40
-                background_color: 1, 1, 1, 1
-                foreground_color: 0, 0, 0, 1
+            Spinner:
+                id: difficulty_spinner
                 size_hint_x: 0.6
                 size_hint_y: 0.7
-                canvas.before:
-                    Color:
-                        rgba: 0, 0, 0, 1
-                    BoxShadow:
-                        inset: True
-                        pos: self.pos
-                        size: self.size
-                        offset: -5, 5
-                        border_radius: 0, 0, 0, 0
-                        blur_radius: 0
+                background_normal: 'Images/buttons/exit/button_normal.png'
+                text: 'Просто'
+                values: root.options.keys()
+                Image:
+                    id:imageplan
+                    source: root.options.get(difficulty_spinner.text, "Images/buttons/exit/button_normal.png")
+                    size:100,100
+                    size_hint:None,None
+                    pos:200,200
 
         BoxLayout:
             orientation: 'horizontal'
@@ -245,5 +220,12 @@ WindowManager:
             size_hint_y: 0.1
             background_normal: 'Images/buttons/startGame/button_normal.png'
             background_down: 'Images/buttons/startGame/button_press.png'
-            pos_hint: {'center_x': 0.5, 'y': 0.1}
+            pos_hint: {'center_x': 0.5, 'y': 0.2}
 
+        Button:
+            size_hint_x: 0.6
+            size_hint_y: 0.08
+            pos_hint: {'center_x': 0.5, 'y': 0.1}
+            background_normal: 'Images/buttons/backToMainMenu/button_normal.png'
+            background_down: 'Images/buttons/backToMainMenu/button_press.png'
+            on_press: root.manager.current = 'MainWindow'
