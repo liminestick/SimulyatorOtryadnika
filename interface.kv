@@ -1,6 +1,7 @@
 WindowManager:
     MainWindow:
     GameWindow:
+    MainGameWindow:
 
 <MainWindow>:
     name: 'MainWindow'
@@ -81,11 +82,13 @@ WindowManager:
                 size: self.texture_size
 
             TextInput:
+                id: text_name
                 font_size: 40
                 background_color: 1, 1, 1, 1
                 foreground_color: 0, 0, 0, 1
                 size_hint_x: 0.6
                 size_hint_y: 0.7
+                font_name: 'fonts/EpilepsySansBold.ttf'
                 canvas.before:
                     Color:
                         rgba: 0, 0, 0, 1
@@ -112,8 +115,10 @@ WindowManager:
                 id: gender_spinner
                 size_hint_x: 0.6
                 size_hint_y: 0.7
-                text: 'Мужской'  # Значение по умолчанию
-                values: ['Мужской', 'Женский']  # Варианты выбора
+                text: ''
+                background_normal: 'Images/gender/normal.png'
+                values: ['Мужской', 'Женский']
+                on_text: root.changing_picture(self)
 
         BoxLayout:
             orientation: 'horizontal'
@@ -127,11 +132,13 @@ WindowManager:
                 size: self.texture_size
 
             TextInput:
+                id: text_age
                 font_size: 40
                 background_color: 1, 1, 1, 1
                 foreground_color: 0, 0, 0, 1
                 size_hint_x: 0.6
                 size_hint_y: 0.7
+                font_name: 'fonts/EpilepsySansBold.ttf'
                 canvas.before:
                     Color:
                         rgba: 0, 0, 0, 1
@@ -158,8 +165,10 @@ WindowManager:
                 id: profile_spinner
                 size_hint_x: 0.6
                 size_hint_y: 0.7
-                text: 'ССО'
-                values: ['ССО', 'СПО', 'СОП']
+                text: ''
+                background_normal: 'Images/difficult/normal.png'
+                values: ['ССО','СПО','СОП']
+                on_text: root.changing_picture(self)
 
         BoxLayout:
             orientation: 'horizontal'
@@ -176,15 +185,10 @@ WindowManager:
                 id: difficulty_spinner
                 size_hint_x: 0.6
                 size_hint_y: 0.7
-                background_normal: 'Images/buttons/exit/button_normal.png'
-                text: 'Просто'
-                values: root.options.keys()
-                Image:
-                    id:imageplan
-                    source: root.options.get(difficulty_spinner.text, "Images/buttons/exit/button_normal.png")
-                    size:100,100
-                    size_hint:None,None
-                    pos:200,200
+                background_normal: 'Images/difficult/normal.png'
+                text: ''
+                values: ['Легко','Нормально','Сложно']
+                on_text: root.changing_picture(self)
 
         BoxLayout:
             orientation: 'horizontal'
@@ -198,11 +202,13 @@ WindowManager:
                 size: self.texture_size
 
             TextInput:
+                id: text_name_brigade
                 font_size: 40
                 background_color: 1, 1, 1, 1
                 foreground_color: 0, 0, 0, 1
                 size_hint_x: 0.6
                 size_hint_y: 0.7
+                font_name: 'fonts/EpilepsySansBold.ttf'
                 canvas.before:
                     Color:
                         rgba: 0, 0, 0, 1
@@ -221,6 +227,7 @@ WindowManager:
             background_normal: 'Images/buttons/startGame/button_normal.png'
             background_down: 'Images/buttons/startGame/button_press.png'
             pos_hint: {'center_x': 0.5, 'y': 0.2}
+            on_press: root.start_new_game(text_name,gender_spinner,text_age, profile_spinner, difficulty_spinner, text_name_brigade)
 
         Button:
             size_hint_x: 0.6
@@ -229,3 +236,17 @@ WindowManager:
             background_normal: 'Images/buttons/backToMainMenu/button_normal.png'
             background_down: 'Images/buttons/backToMainMenu/button_press.png'
             on_press: root.manager.current = 'MainWindow'
+
+<MainGameWindow>:
+    name: 'MainGameWindow'
+    FloatLayout:
+        canvas:
+            Rectangle:
+                source: 'Images/backgrounds/main_game_background.png'
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 0.9, 0.1
+            pos_hint: {'x': 0.05, 'top': 0.95}
