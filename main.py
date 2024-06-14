@@ -7,6 +7,7 @@ from kivy.properties import ObjectProperty, DictProperty
 import player
 
 main_player = player.Player()
+main_player.read_json()
 
 class MainWindow(Screen):
 
@@ -15,6 +16,9 @@ class MainWindow(Screen):
         button.background_down = down
         if button.name == 'new_game':
             self.manager.current = 'GameWindow'
+        if button.name == 'continue_game':
+            self.manager.current = 'MainGameWindow'
+
 
 class GameWindow(Screen):
 
@@ -34,6 +38,8 @@ class GameWindow(Screen):
             spinner.text = ''
 
     def start_new_game(self, text_name, gender_spinner, text_age, profile_spinner, difficulty_spinner, text_name_brigade):
+        global main_player
+        main_player = player.Player()
         main_player.name = text_name.text
         main_player.gender = gender_spinner.text
         main_player.age = text_age.text
@@ -48,8 +54,6 @@ class MainGameWindow(Screen):
 
 class WindowManager(ScreenManager):
     pass
-
-
 
 kv = Builder.load_file('interface.kv')
 

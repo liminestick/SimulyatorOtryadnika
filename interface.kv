@@ -35,6 +35,7 @@ WindowManager:
                 on_release: root.change_button_image(self, self.background_normal, self.background_down)
 
             Button:
+                name: 'continue_game'
                 id: continue_button
                 size_hint_y: 0.9
                 background_normal: 'Images/buttons/continue/button_normal.png'
@@ -248,5 +249,89 @@ WindowManager:
 
         BoxLayout:
             orientation: 'horizontal'
-            size_hint: 0.9, 0.1
-            pos_hint: {'x': 0.05, 'top': 0.95}
+            size_hint_y: 0.1
+            pos_hint:{'center_x': 0.5, 'top': 1}
+
+            BoxLayout:
+                orientation: 'vertical'
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Image:
+                        source: 'Images/Indicators/heatlh.png'
+                        size: self.texture_size
+                    Label:
+                        id: text_health
+                        text:'100'
+                        font_name: 'fonts/EpilepsySansBold.ttf'
+                        font_size: 40
+
+
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Image:
+                        source: 'Images/Indicators/hunger.png'
+                        size: self.texture_size
+                    Label:
+                        id: text_hunger
+                        text:'100'
+                        font_name: 'fonts/EpilepsySansBold.ttf'
+                        font_size: 40
+
+            BoxLayout:
+                orientation: 'vertical'
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Image:
+                        source: 'Images/Indicators/money.png'
+                        size: self.texture_size
+                    Label:
+                        id:text_money
+                        text:'100'
+                        font_name: 'fonts/EpilepsySansBold.ttf'
+                        font_size: 40
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Image:
+                        source: 'Images/Indicators/mood.png'
+                        size: self.texture_size
+                    Label:
+                        id:text_mood
+                        text:'100'
+                        font_name: 'fonts/EpilepsySansBold.ttf'
+                        font_size: 40
+
+            BoxLayout:
+                orientation: 'vertical'
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Image:
+                        source: 'Images/Indicators/populyarity.png'
+                        size: self.texture_size
+                    Label:
+                        id:text_populyarity
+                        text:'100'
+                        font_name: 'fonts/EpilepsySansBold.ttf'
+                        font_size: 40
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Image:
+                        source: 'Images/Indicators/supermoney.png'
+                        size: self.texture_size
+                    Label:
+                        id:text_supermoney
+                        text:'100'
+                        font_name: 'fonts/EpilepsySansBold.ttf'
+                        font_size: 40
+
+
+
+
+        BoxLayout:
+            orientation: 'horizontal'
+            pos_hint:{'center_x': 0.5, 'top': 1}
+            Image:
+                source: 'Images/player/normal/normal.png'
+                size: self.texture_size
+
+
+

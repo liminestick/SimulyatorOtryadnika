@@ -36,13 +36,26 @@ class Player():
             'post': self.post,
             'popularity': self.popularity}
 
+        with open(PATH, 'w', encoding='utf-8') as db_file:
+            json.dump(dict_player, db_file, ensure_ascii=False)
+
+    def read_json(self):
         if os.path.isfile(PATH) and os.access(PATH, os.R_OK):
-            with open(PATH, 'w', encoding='utf-8') as db_file:
-                json.dump(dict_player, db_file, ensure_ascii=False)
-            # Перезаписать файл
-        else:
-            with open(PATH, 'w', encoding='utf-8') as db_file:
-                json.dump(dict_player, db_file, ensure_ascii=False)
+            with open(PATH, 'r', encoding='utf-8') as db_file:
+                data = json.load(db_file)
+                self.name = data['name']
+                self.gender = data['gender']
+                self.age = data['age']
+                self.profile = data['profile']
+                self.difficult = data['difficult']
+                self.name_brigade = data['name_brigade']
+                self.health = data['health']
+                self.hunger = data['hunger']
+                self.mood = data['mood']
+                self.money = data['money']
+                self.special_money = data['special_money']
+                self.post = data['post']
+                self.popularity = data['popularity']
 
 
 
