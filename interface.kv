@@ -323,9 +323,6 @@ WindowManager:
                         font_name: 'fonts/EpilepsySansBold.ttf'
                         font_size: 100
 
-
-
-
         BoxLayout:
             orientation: 'horizontal'
             pos_hint:{'top': 0.8}
@@ -337,7 +334,7 @@ WindowManager:
         BoxLayout:
             orientation: 'horizontal'
             pos_hint:{'center_x': 0.5,'top': 0.35}
-            size_hint_y: 0.3
+            size_hint_y: 0.25
             spacing: dp(15)
             size_hint_x: 0.9
             BoxLayout:
@@ -362,8 +359,18 @@ WindowManager:
                     background_normal: 'Images/buttons/study/button_normal.png'
                     background_down: 'Images/buttons/study/button_press.png'
                 Button:
-                    background_normal: 'Images/buttons/main_menu/button_normal.png'
-                    background_down: 'Images/buttons/main_menu/button_press.png'
+                    background_normal: 'Images/buttons/event/button_normal.png'
+                    background_down: 'Images/buttons/event/button_press.png'
+        BoxLayout:
+            orientation: 'horizontal'
+            pos_hint:{'center_x': 0.5,'top': 0.08}
+            size_hint_y: 0.07
+            spacing: dp(15)
+            size_hint_x: 0.9
+            Button:
+                background_normal: 'Images/buttons/main_menu/button_normal.png'
+                background_down: 'Images/buttons/main_menu/button_press.png'
+
 
 
 
