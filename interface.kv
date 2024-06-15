@@ -84,7 +84,7 @@ WindowManager:
 
             TextInput:
                 id: text_name
-                font_size: 40
+                font_size: 120
                 background_color: 1, 1, 1, 1
                 foreground_color: 0, 0, 0, 1
                 size_hint_x: 0.6
@@ -134,7 +134,7 @@ WindowManager:
 
             TextInput:
                 id: text_age
-                font_size: 40
+                font_size: 120
                 background_color: 1, 1, 1, 1
                 foreground_color: 0, 0, 0, 1
                 size_hint_x: 0.6
@@ -204,7 +204,7 @@ WindowManager:
 
             TextInput:
                 id: text_name_brigade
-                font_size: 40
+                font_size: 120
                 background_color: 1, 1, 1, 1
                 foreground_color: 0, 0, 0, 1
                 size_hint_x: 0.6
@@ -250,7 +250,7 @@ WindowManager:
         BoxLayout:
             orientation: 'horizontal'
             size_hint_y: 0.1
-            pos_hint:{'center_x': 0.5, 'top': 1}
+            pos_hint:{'top': 1}
 
             BoxLayout:
                 orientation: 'vertical'
@@ -263,7 +263,7 @@ WindowManager:
                         id: text_health
                         text:'100'
                         font_name: 'fonts/EpilepsySansBold.ttf'
-                        font_size: 40
+                        font_size: 100
 
 
                 BoxLayout:
@@ -275,7 +275,7 @@ WindowManager:
                         id: text_hunger
                         text:'100'
                         font_name: 'fonts/EpilepsySansBold.ttf'
-                        font_size: 40
+                        font_size: 100
 
             BoxLayout:
                 orientation: 'vertical'
@@ -288,7 +288,7 @@ WindowManager:
                         id:text_money
                         text:'100'
                         font_name: 'fonts/EpilepsySansBold.ttf'
-                        font_size: 40
+                        font_size: 100
                 BoxLayout:
                     orientation: 'horizontal'
                     Image:
@@ -298,7 +298,7 @@ WindowManager:
                         id:text_mood
                         text:'100'
                         font_name: 'fonts/EpilepsySansBold.ttf'
-                        font_size: 40
+                        font_size: 100
 
             BoxLayout:
                 orientation: 'vertical'
@@ -311,7 +311,7 @@ WindowManager:
                         id:text_populyarity
                         text:'100'
                         font_name: 'fonts/EpilepsySansBold.ttf'
-                        font_size: 40
+                        font_size: 100
                 BoxLayout:
                     orientation: 'horizontal'
                     Image:
@@ -321,17 +321,50 @@ WindowManager:
                         id:text_supermoney
                         text:'100'
                         font_name: 'fonts/EpilepsySansBold.ttf'
-                        font_size: 40
+                        font_size: 100
 
 
 
 
         BoxLayout:
             orientation: 'horizontal'
-            pos_hint:{'center_x': 0.5, 'top': 1}
+            pos_hint:{'top': 0.8}
+            size_hint_y: 0.4
             Image:
                 source: 'Images/player/normal/normal.png'
                 size: self.texture_size
+
+        BoxLayout:
+            orientation: 'horizontal'
+            pos_hint:{'center_x': 0.5,'top': 0.35}
+            size_hint_y: 0.3
+            spacing: dp(15)
+            size_hint_x: 0.9
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: dp(15)
+                Button:
+                    background_normal: 'Images/buttons/shop/button_normal.png'
+                    background_down: 'Images/buttons/shop/button_press.png'
+                Button:
+                    background_normal: 'Images/buttons/brigade/button_normal.png'
+                    background_down: 'Images/buttons/brigade/button_press.png'
+                Button:
+                    background_normal: 'Images/buttons/profile/button_normal.png'
+                    background_down: 'Images/buttons/profile/button_press.png'
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: dp(15)
+                Button:
+                    background_normal: 'Images/buttons/work/button_normal.png'
+                    background_down: 'Images/buttons/work/button_press.png'
+                Button:
+                    background_normal: 'Images/buttons/study/button_normal.png'
+                    background_down: 'Images/buttons/study/button_press.png'
+                Button:
+                    background_normal: 'Images/buttons/main_menu/button_normal.png'
+                    background_down: 'Images/buttons/main_menu/button_press.png'
+
 
 
 
