@@ -495,8 +495,7 @@ WindowManager:
                     Button:
                         background_normal: 'Images/buttons/event/button_normal.png'
                         background_down: 'Images/buttons/event/button_press.png'
-                        on_press: root.work1(player_image)
-                        on_press: player_image._coreimage.anim_reset(True)
+                        on_press: Clock.schedule_interval(partial(gif_play,player_image),0.1)
 
                     Button:
                         background_normal: 'Images/buttons/event/button_normal.png'
