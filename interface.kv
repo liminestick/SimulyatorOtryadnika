@@ -2,6 +2,7 @@ WindowManager:
     MainWindow:
     GameWindow:
     MainGameWindow:
+    ShopGameWindow:
 
 <MainWindow>:
     name: 'MainWindow'
@@ -353,7 +354,7 @@ WindowManager:
                 Button:
                     background_normal: 'Images/buttons/shop/button_normal.png'
                     background_down: 'Images/buttons/shop/button_press.png'
-                    on_press: root.add_button(button_collection, btn_work)
+                    on_press: root.shop_screen()
                 Button:
                     background_normal: 'Images/buttons/brigade/button_normal.png'
                     background_down: 'Images/buttons/brigade/button_press.png'
@@ -370,10 +371,11 @@ WindowManager:
                 Button:
                     background_normal: 'Images/buttons/study/button_normal.png'
                     background_down: 'Images/buttons/study/button_press.png'
-                    on_press:root.add_button2(btn_work)
+                    on_press:root.add_button2()
                 Button:
                     background_normal: 'Images/buttons/event/button_normal.png'
                     background_down: 'Images/buttons/event/button_press.png'
+
         BoxLayout:
             orientation: 'horizontal'
             pos_hint:{'center_x': 0.5,'top': 0.08}
@@ -384,7 +386,178 @@ WindowManager:
                 background_normal: 'Images/buttons/main_menu/button_normal.png'
                 background_down: 'Images/buttons/main_menu/button_press.png'
 
+<ShopGameWindow>:
+    name: 'ShopGameWindow'
+    FloatLayout:
+        canvas:
+            Rectangle:
+                source: 'Images/backgrounds/main_game_background.png'
+                size: self.size
+                pos: self.pos
+
+        spacing:dp(15)
+        BoxLayout:
+            orientation: 'vertical'
+            spacing:dp(15)
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.15
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        Image:
+                            source: 'Images/Indicators/heatlh.png'
+                            size: self.texture_size
+                        Label:
+                            id: text_health
+                            text:'100'
+                            font_name: 'fonts/EpilepsySansBold.ttf'
+                            font_size: 90
+
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        Image:
+                            source: 'Images/Indicators/hunger.png'
+                            size: self.texture_size
+                        Label:
+                            id: text_health
+                            text:'100'
+                            font_name: 'fonts/EpilepsySansBold.ttf'
+                            font_size: 90
+
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        Image:
+                            source: 'Images/Indicators/money.png'
+                            size: self.texture_size
+                        Label:
+                            id: text_health
+                            text:'100'
+                            font_name: 'fonts/EpilepsySansBold.ttf'
+                            font_size: 90
+
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        Image:
+                            source: 'Images/Indicators/mood.png'
+                            size: self.texture_size
+                        Label:
+                            id: text_health
+                            text:'100'
+                            font_name: 'fonts/EpilepsySansBold.ttf'
+                            font_size: 90
+
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        Image:
+                            source: 'Images/Indicators/populyarity.png'
+                            size: self.texture_size
+                        Label:
+                            id: text_health
+                            text:'100'
+                            font_name: 'fonts/EpilepsySansBold.ttf'
+                            font_size: 90
+
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        Image:
+                            source: 'Images/Indicators/supermoney.png'
+                            size: self.texture_size
+                        Label:
+                            id: text_health
+                            text:'100'
+                            font_name: 'fonts/EpilepsySansBold.ttf'
+                            font_size: 90
 
 
+                Image:
+                    id:player_image
+                    source: 'Images/player/normal/normal.png'
+                    size: self.texture_size
+                    anim_delay: 0.07
+                    anim_loop: 1
 
+            BoxLayout:
+                orientation:'vertical'
+                pos_hint:{'center_x': 0.5,'top': 0.35}
+                size_hint_y: 0.25
+                spacing: dp(15)
+                size_hint_x: 0.9
 
+                BoxLayout:
+                    orientation:'horizontal'
+                    spacing:dp(15)
+
+                    Button:
+                        background_normal: 'Images/buttons/event/button_normal.png'
+                        background_down: 'Images/buttons/event/button_press.png'
+                        on_press: root.work1(player_image)
+                        on_press: player_image._coreimage.anim_reset(True)
+
+                    Button:
+                        background_normal: 'Images/buttons/event/button_normal.png'
+                        background_down: 'Images/buttons/event/button_press.png'
+                BoxLayout:
+                    orientation:'horizontal'
+                    spacing:dp(15)
+
+                    Button:
+                        background_normal: 'Images/buttons/event/button_normal.png'
+                        background_down: 'Images/buttons/event/button_press.png'
+                    Button:
+                        background_normal: 'Images/buttons/event/button_normal.png'
+                        background_down: 'Images/buttons/event/button_press.png'
+                BoxLayout:
+                    orientation:'horizontal'
+                    spacing:dp(15)
+
+                    Button:
+                        background_normal: 'Images/buttons/event/button_normal.png'
+                        background_down: 'Images/buttons/event/button_press.png'
+                    Button:
+                        background_normal: 'Images/buttons/event/button_normal.png'
+                        background_down: 'Images/buttons/event/button_press.png'
+                BoxLayout:
+                    orientation:'horizontal'
+                    spacing:dp(15)
+
+                    Button:
+                        background_normal: 'Images/buttons/event/button_normal.png'
+                        background_down: 'Images/buttons/event/button_press.png'
+                    Button:
+                        background_normal: 'Images/buttons/event/button_normal.png'
+                        background_down: 'Images/buttons/event/button_press.png'
+                BoxLayout:
+                    orientation:'horizontal'
+                    spacing:dp(15)
+
+                    Button:
+                        background_normal: 'Images/buttons/event/button_normal.png'
+                        background_down: 'Images/buttons/event/button_press.png'
+                    Button:
+                        background_normal: 'Images/buttons/event/button_normal.png'
+                        background_down: 'Images/buttons/event/button_press.png'
+                BoxLayout:
+                    orientation:'horizontal'
+                    spacing:dp(15)
+
+                    Button:
+                        background_normal: 'Images/buttons/event/button_normal.png'
+                        background_down: 'Images/buttons/event/button_press.png'
+                    Button:
+                        background_normal: 'Images/buttons/event/button_normal.png'
+                        background_down: 'Images/buttons/event/button_press.png'
+                BoxLayout:
+                    orientation:'horizontal'
+                    spacing:dp(15)
+
+                    Button:
+                        background_normal: 'Images/buttons/event/button_normal.png'
+                        background_down: 'Images/buttons/event/button_press.png'
+                    Button:
+                        background_normal: 'Images/buttons/event/button_normal.png'
+                        background_down: 'Images/buttons/event/button_press.png'
