@@ -3,6 +3,9 @@ from kivy.config import Config
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.popup import Popup
+from kivy.uix.label import Label
 from kivy.properties import ObjectProperty, DictProperty
 import player
 
@@ -50,7 +53,35 @@ class GameWindow(Screen):
         self.manager.current = 'MainGameWindow'
 
 class MainGameWindow(Screen):
-    pass
+
+    def fill_data(self, text_health, text_hunger, text_money, text_mood, text_populyarity, text_supermoney, text_post):
+        text_health.text = str(main_player.health)
+        text_hunger.text = str(main_player.hunger)
+        text_money.text = str(main_player.money)
+        text_mood.text = str(main_player.mood)
+        text_populyarity.text = str(main_player.popularity)
+        text_supermoney.text = str(main_player.special_money)
+        text_post.text = text_post.text + str(main_player.post)
+
+    def add_button(self,button_collection, btn_work):
+        btn_1 = Button(text='Кнопка')
+        btn_work.opacity = 0
+        btn_work.size_hint_y = 0.0
+        button_collection.add_widget(btn_1)
+
+    def add_button2(self, btn_work):
+        btn_close = Button(text='Понял принял')
+        bx = BoxLayout(orientation='vertical')
+        popup = Popup(title='Test popup',
+                      size_hint=(None, None), size=(400, 400),
+                      background='Images/buttons/profile/button_normal.png',
+                      auto_dismiss=False)
+        lb = Label(text='Привет отрядник')
+        bx.add_widget(lb)
+        bx.add_widget(btn_close)
+        popup.add_widget(bx)
+        btn_close.bind(on_press=popup.dismiss)
+        popup.open()
 
 class WindowManager(ScreenManager):
     pass

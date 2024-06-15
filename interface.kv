@@ -240,6 +240,7 @@ WindowManager:
 
 <MainGameWindow>:
     name: 'MainGameWindow'
+    on_enter: root.fill_data(text_health, text_hunger, text_money, text_mood, text_populyarity, text_supermoney, text_post)
     FloatLayout:
         canvas:
             Rectangle:
@@ -322,6 +323,14 @@ WindowManager:
                         text:'100'
                         font_name: 'fonts/EpilepsySansBold.ttf'
                         font_size: 100
+        BoxLayout:
+            orientation: 'horizontal'
+            pos_hint:{'x':0,'y': 0.35}
+            Label:
+                id: text_post
+                text:'Должность: '
+                font_name: 'fonts/EpilepsySansBold.ttf'
+                font_size: 80
 
         BoxLayout:
             orientation: 'horizontal'
@@ -338,11 +347,13 @@ WindowManager:
             spacing: dp(15)
             size_hint_x: 0.9
             BoxLayout:
+                id:button_collection
                 orientation: 'vertical'
                 spacing: dp(15)
                 Button:
                     background_normal: 'Images/buttons/shop/button_normal.png'
                     background_down: 'Images/buttons/shop/button_press.png'
+                    on_press: root.add_button(button_collection, btn_work)
                 Button:
                     background_normal: 'Images/buttons/brigade/button_normal.png'
                     background_down: 'Images/buttons/brigade/button_press.png'
@@ -353,11 +364,13 @@ WindowManager:
                 orientation: 'vertical'
                 spacing: dp(15)
                 Button:
+                    id:btn_work
                     background_normal: 'Images/buttons/work/button_normal.png'
                     background_down: 'Images/buttons/work/button_press.png'
                 Button:
                     background_normal: 'Images/buttons/study/button_normal.png'
                     background_down: 'Images/buttons/study/button_press.png'
+                    on_press:root.add_button2(btn_work)
                 Button:
                     background_normal: 'Images/buttons/event/button_normal.png'
                     background_down: 'Images/buttons/event/button_press.png'

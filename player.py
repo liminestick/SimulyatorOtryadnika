@@ -56,6 +56,3 @@ class Player():
                 self.special_money = data['special_money']
                 self.post = data['post']
                 self.popularity = data['popularity']
-
-
-
