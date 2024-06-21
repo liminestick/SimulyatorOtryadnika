@@ -478,8 +478,9 @@ WindowManager:
                     id:player_image
                     source: 'Images/player/normal/normal.png'
                     size: self.texture_size
-                    anim_delay: 0.07
+                    anim_delay: -1
                     anim_loop: 1
+                    allow_stretch: True
 
             BoxLayout:
                 orientation:'vertical'
@@ -495,7 +496,7 @@ WindowManager:
                     Button:
                         background_normal: 'Images/buttons/event/button_normal.png'
                         background_down: 'Images/buttons/event/button_press.png'
-                        on_press: Clock.schedule_interval(partial(gif_play,player_image),0.1)
+                        on_press: root.work1(player_image)
 
                     Button:
                         background_normal: 'Images/buttons/event/button_normal.png'

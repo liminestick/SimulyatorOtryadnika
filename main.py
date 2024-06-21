@@ -8,8 +8,6 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.properties import ObjectProperty, DictProperty
 from kivy.animation import Animation
-from kivy.clock import Clock
-from functools import partial
 import player
 
 main_player = player.Player()
@@ -91,8 +89,12 @@ class MainGameWindow(Screen):
 
 class ShopGameWindow(Screen):
 
-    def gif_play(self, player_image):
-        print(1)
+    def work1(self, player_image):
+        player_image.source = 'Images/gif/actions/PlayerPlusMoney.zip'
+        player_image.anim_delay = 0.04
+        player_image.reload()
+        # a = Image()
+        # a.reload()
 
 class WindowManager(ScreenManager):
     pass
