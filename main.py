@@ -93,8 +93,10 @@ class ShopGameWindow(Screen):
         player_image.source = 'Images/gif/actions/PlayerPlusMoney.zip'
         player_image.anim_delay = 0.04
         player_image.reload()
-        # a = Image()
-        # a.reload()
+
+    def on_enter(self, *args):
+        pass
+
 
 class WindowManager(ScreenManager):
     pass
