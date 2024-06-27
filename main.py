@@ -9,9 +9,13 @@ from kivy.uix.label import Label
 from kivy.properties import ObjectProperty, DictProperty
 from kivy.animation import Animation
 import player
+import shop
 
 main_player = player.Player()
 main_player.read_json()
+
+main_shop = shop.Shop()
+main_shop.create_shop()
 
 class MainWindow(Screen):
 
@@ -95,7 +99,10 @@ class ShopGameWindow(Screen):
         player_image.reload()
 
     def on_enter(self, *args):
-        pass
+        global main_shop
+        list_button = main_shop.list_button
+        for i in list_button:
+
 
 
 class WindowManager(ScreenManager):
