@@ -329,7 +329,7 @@ WindowManager:
             pos_hint:{'x':0,'y': 0.35}
             Label:
                 id: text_post
-                text:'Должность: '
+                text:''
                 font_name: 'fonts/EpilepsySansBold.ttf'
                 font_size: 80
 
@@ -509,7 +509,7 @@ WindowManager:
                 Button:
                     background_normal: 'Images/buttons/event/button_normal.png'
                     background_down: 'Images/buttons/event/button_press.png'
-                    on_press: root.work1(player_image)
+                    on_press: root.back()
 
                 Button:
                     background_normal: 'Images/buttons/event/button_normal.png'

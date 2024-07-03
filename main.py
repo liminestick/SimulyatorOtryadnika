@@ -69,7 +69,7 @@ class MainGameWindow(Screen):
         text_mood.text = str(main_player.mood)
         text_populyarity.text = str(main_player.popularity)
         text_supermoney.text = str(main_player.special_money)
-        text_post.text = text_post.text + str(main_player.post)
+        text_post.text = "Должность: " + str(main_player.post)
 
     def shop_screen(self):
         self.manager.current = 'ShopGameWindow'
@@ -96,10 +96,8 @@ class MainGameWindow(Screen):
 
 class ShopGameWindow(Screen):
 
-    def work1(self, player_image):
-        player_image.source = 'Images/gif/actions/PlayerPlusMoney.zip'
-        player_image.anim_delay = 0.04
-        player_image.reload()
+    def back(self):
+        self.manager.current = 'MainGameWindow'
 
     def on_enter(self, *args):
         Clock.schedule_once(self.change_screen)
@@ -108,14 +106,16 @@ class ShopGameWindow(Screen):
         global main_shop
         list_button = []
         for button in main_shop.list_button:
-            btn = {'text': str(button.name)}
+            btn = {'text': str(button.name), 'player_image': self.ids['player_image']}
             list_button.append(btn)
             print(button.name)
         self.ids['listButtonView'].data = list_button
 
 class CustomButton(Button):
-    pass
-
+    def on_release(self):
+        self.player_image.source = 'Images/gif/actions/PlayerPlusMoney.zip'
+        self.player_image.anim_delay = 0.04
+        self.player_image.reload()
 
 class WindowManager(ScreenManager):
     pass
