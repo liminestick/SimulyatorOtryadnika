@@ -487,18 +487,30 @@ WindowManager:
                 orientation:'vertical'
                 pos_hint:{'center_x': 0.5,'top': 0.35}
                 size_hint_y: 0.25
-                spacing: dp(15)
-                size_hint_x: 0.9
+                size_hint_x: 1
 
-                BoxLayout:
-                    orientation:'horizontal'
-                    spacing:dp(15)
+                RecycleView:
+                    id:listButtonView
+                    viewclass: 'CustomButton'
+                    #pos_hint:{'center_x': 0.5,'center_y': 0.5}
+                    RecycleBoxLayout:
+                        default_size: None, dp(56)
+                        default_size_hint: 1, 1
+                        size_hint_y: None
+                        height: dp(1500)
+                        orientation: 'vertical'
 
-                    Button:
-                        background_normal: 'Images/buttons/event/button_normal.png'
-                        background_down: 'Images/buttons/event/button_press.png'
-                        on_press: root.work1(player_image)
 
-                    Button:
-                        background_normal: 'Images/buttons/event/button_normal.png'
-                        background_down: 'Images/buttons/event/button_press.png'
+            BoxLayout:
+                size_hint_y: 0.06
+                orientation:'horizontal'
+                spacing:dp(15)
+
+                Button:
+                    background_normal: 'Images/buttons/event/button_normal.png'
+                    background_down: 'Images/buttons/event/button_press.png'
+                    on_press: root.work1(player_image)
+
+                Button:
+                    background_normal: 'Images/buttons/event/button_normal.png'
+                    background_down: 'Images/buttons/event/button_press.png'

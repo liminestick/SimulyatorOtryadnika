@@ -8,6 +8,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.properties import ObjectProperty, DictProperty
 from kivy.animation import Animation
+from kivy.clock import Clock
 import player
 import shop
 
@@ -16,6 +17,7 @@ main_player.read_json()
 
 main_shop = shop.Shop()
 main_shop.create_shop()
+
 
 class MainWindow(Screen):
 
@@ -29,15 +31,14 @@ class MainWindow(Screen):
 
 
 class GameWindow(Screen):
-
     Screen.list_dict = {"Легко": "Images/difficult/easy.png",
-               "Нормально": "Images/difficult/medium.png",
-               "Сложно": "Images/difficult/hard.png",
-               "ССО": "Images/profile/SSO.png",
-               "СПО": "Images/profile/SPO.png",
-               "СОП": "Images/profile/SOP.png",
-               "Мужской":"Images/gender/male.png",
-               "Женский":"Images/gender/female.png"}
+                        "Нормально": "Images/difficult/medium.png",
+                        "Сложно": "Images/difficult/hard.png",
+                        "ССО": "Images/profile/SSO.png",
+                        "СПО": "Images/profile/SPO.png",
+                        "СОП": "Images/profile/SOP.png",
+                        "Мужской": "Images/gender/male.png",
+                        "Женский": "Images/gender/female.png"}
     options = DictProperty(Screen.list_dict)
 
     def changing_picture(self, spinner):
@@ -45,7 +46,8 @@ class GameWindow(Screen):
             spinner.background_normal = Screen.list_dict[spinner.text]
             spinner.text = ''
 
-    def start_new_game(self, text_name, gender_spinner, text_age, profile_spinner, difficulty_spinner, text_name_brigade):
+    def start_new_game(self, text_name, gender_spinner, text_age, profile_spinner, difficulty_spinner,
+                       text_name_brigade):
         global main_player
         main_player = player.Player()
         main_player.name = text_name.text
@@ -56,6 +58,7 @@ class GameWindow(Screen):
         main_player.name_brigade = text_name_brigade.text
         main_player.write_json()
         self.manager.current = 'MainGameWindow'
+
 
 class MainGameWindow(Screen):
 
@@ -70,7 +73,6 @@ class MainGameWindow(Screen):
 
     def shop_screen(self):
         self.manager.current = 'ShopGameWindow'
-
 
         # Код чтобы скрывать и добавлять кнопки
         # btn_1 = Button(text='Кнопка')
@@ -91,6 +93,7 @@ class MainGameWindow(Screen):
         btn_close.bind(on_press=popup.dismiss)
         popup.open()
 
+
 class ShopGameWindow(Screen):
 
     def work1(self, player_image):
@@ -99,20 +102,32 @@ class ShopGameWindow(Screen):
         player_image.reload()
 
     def on_enter(self, *args):
-        global main_shop
-        list_button = main_shop.list_button
-        for i in list_button:
+        Clock.schedule_once(self.change_screen)
 
+    def change_screen(self, dt):
+        global main_shop
+        list_button = []
+        for button in main_shop.list_button:
+            btn = {'text': str(button.name)}
+            list_button.append(btn)
+            print(button.name)
+        self.ids['listButtonView'].data = list_button
+
+class CustomButton(Button):
+    pass
 
 
 class WindowManager(ScreenManager):
     pass
 
+
 kv = Builder.load_file('interface.kv')
+
 
 class MyApp(App):
     def build(self):
         return kv
+
 
 if __name__ == '__main__':
     MyApp().run()
