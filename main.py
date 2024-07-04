@@ -50,14 +50,60 @@ class GameWindow(Screen):
                        text_name_brigade):
         global main_player
         main_player = player.Player()
-        main_player.name = text_name.text
-        main_player.gender = gender_spinner.text
-        main_player.age = text_age.text
-        main_player.profile = profile_spinner.text
-        main_player.difficult = difficulty_spinner.text
-        main_player.name_brigade = text_name_brigade.text
-        main_player.write_json()
-        self.manager.current = 'MainGameWindow'
+        play_game = True
+        if text_name.text != '':
+            main_player.name = text_name.text
+        else:
+            play_game = False
+            self.show_warning('Заполните имя')
+
+        if gender_spinner.text != '':
+            main_player.gender = gender_spinner.text
+        else:
+            play_game = False
+            self.show_warning('Заполните имя')
+
+        if text_age.text != '':
+            main_player.age = text_age.text
+        else:
+            play_game = False
+            self.show_warning('Заполните имя')
+
+        if profile_spinner.text != '':
+            main_player.profile = profile_spinner.text
+        else:
+            play_game = False
+            self.show_warning('Заполните имя')
+            
+        if difficulty_spinner.text != '':
+            main_player.difficult = difficulty_spinner.text
+        else:
+            play_game = False
+            self.show_warning('Заполните имя')
+            
+        if text_name_brigade.text != '':
+            main_player.name_brigade = text_name_brigade.text
+        else:
+            play_game = False
+            self.show_warning('Заполните имя')
+
+        if play_game:
+            main_player.write_json()
+            self.manager.current = 'MainGameWindow'
+
+    def show_warning(self, text_warning: object = '') -> object:
+        btn_close = Button(text='Понял принял')
+        bx = BoxLayout(orientation='vertical')
+        popup = Popup(title='',separator_color=(1,1,1,0),size_hint=(None, None), size=(400, 400),
+                      background='Images/buttons/profile/button_normal.png',
+                      auto_dismiss=False)
+        popup.separator_color = (1,1,1,0)
+        lb = Label(text=text_warning)
+        bx.add_widget(lb)
+        bx.add_widget(btn_close)
+        popup.add_widget(bx)
+        btn_close.bind(on_press=popup.dismiss)
+        popup.open()
 
 
 class MainGameWindow(Screen):
@@ -81,17 +127,7 @@ class MainGameWindow(Screen):
         # button_collection.add_widget(btn_1)
 
     def add_button2(self):
-        btn_close = Button(text='Понял принял')
-        bx = BoxLayout(orientation='vertical')
-        popup = Popup(size_hint=(None, None), size=(400, 400),
-                      background='Images/buttons/profile/button_normal.png',
-                      auto_dismiss=False)
-        lb = Label(text='Привет отрядник')
-        bx.add_widget(lb)
-        bx.add_widget(btn_close)
-        popup.add_widget(bx)
-        btn_close.bind(on_press=popup.dismiss)
-        popup.open()
+        pass
 
 
 class ShopGameWindow(Screen):
@@ -108,7 +144,6 @@ class ShopGameWindow(Screen):
         for button in main_shop.list_button:
             btn = {'text': str(button.name), 'player_image': self.ids['player_image']}
             list_button.append(btn)
-            print(button.name)
         self.ids['listButtonView'].data = list_button
 
 class CustomButton(Button):
