@@ -168,7 +168,7 @@ WindowManager:
                 size_hint_x: 0.6
                 size_hint_y: 0.7
                 text: ''
-                background_normal: 'Images/difficult/normal.png'
+                background_normal: 'Images/profile/normal.png'
                 values: ['ССО','СПО','СОП']
                 on_text: root.changing_picture(self)
 
@@ -385,6 +385,7 @@ WindowManager:
             Button:
                 background_normal: 'Images/buttons/main_menu/button_normal.png'
                 background_down: 'Images/buttons/main_menu/button_press.png'
+                on_press: root.manager.current = 'MainWindow'
 
 <ShopGameWindow>:
     name: 'ShopGameWindow'
@@ -510,7 +511,3 @@ WindowManager:
                     background_normal: 'Images/buttons/event/button_normal.png'
                     background_down: 'Images/buttons/event/button_press.png'
                     on_press: root.back()
-
-                Button:
-                    background_normal: 'Images/buttons/event/button_normal.png'
-                    background_down: 'Images/buttons/event/button_press.png'

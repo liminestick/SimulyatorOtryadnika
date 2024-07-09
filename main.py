@@ -55,50 +55,50 @@ class GameWindow(Screen):
             main_player.name = text_name.text
         else:
             play_game = False
-            self.show_warning('Заполните имя')
 
-        if gender_spinner.text != '':
+        if gender_spinner.state_image != 'Images/gender/normal.png':
             main_player.gender = gender_spinner.text
         else:
             play_game = False
-            self.show_warning('Заполните имя')
 
         if text_age.text != '':
             main_player.age = text_age.text
         else:
             play_game = False
-            self.show_warning('Заполните имя')
 
-        if profile_spinner.text != '':
+        if profile_spinner.state_image != 'Images/profile/normal.png':
             main_player.profile = profile_spinner.text
         else:
             play_game = False
-            self.show_warning('Заполните имя')
             
-        if difficulty_spinner.text != '':
+        if difficulty_spinner.state_image != 'Images/difficult/normal.png':
             main_player.difficult = difficulty_spinner.text
         else:
             play_game = False
-            self.show_warning('Заполните имя')
             
         if text_name_brigade.text != '':
             main_player.name_brigade = text_name_brigade.text
         else:
             play_game = False
-            self.show_warning('Заполните имя')
 
         if play_game:
             main_player.write_json()
             self.manager.current = 'MainGameWindow'
+        else:
+            self.show_warning('Заполните все поля')
 
-    def show_warning(self, text_warning: object = '') -> object:
-        btn_close = Button(text='Понял принял')
+    def show_warning(self, text_warning):
+        btn_close = Button(text='', size_hint_y=0.3,
+                           background_normal='Images/answers/clear/button_normal.png',
+                           background_down='Images/answers/clear/button_press.png')
         bx = BoxLayout(orientation='vertical')
-        popup = Popup(title='',separator_color=(1,1,1,0),size_hint=(None, None), size=(400, 400),
-                      background='Images/buttons/profile/button_normal.png',
+        popup = Popup(title='', separator_color=(1, 1, 1, 0),
+                      size_hint=(None, None),
+                      size=(400, 400),
+                      background='Images/popup/popup_normal.png',
                       auto_dismiss=False)
-        popup.separator_color = (1,1,1,0)
-        lb = Label(text=text_warning)
+        popup.separator_color = (1, 1, 1, 0)
+        lb = Label(text=text_warning, font_name='fonts/EpilepsySansBold.ttf', font_size=25)
         bx.add_widget(lb)
         bx.add_widget(btn_close)
         popup.add_widget(bx)
