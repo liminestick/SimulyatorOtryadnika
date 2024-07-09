@@ -32,8 +32,7 @@ WindowManager:
                 size_hint_y: 0.9
                 background_normal: 'Images/buttons/newGame/button_normal.png'
                 background_down: 'Images/buttons/newGame/button_press.png'
-                on_press: root.change_button_image(self, self.background_normal, self.background_down)
-                on_release: root.change_button_image(self, self.background_normal, self.background_down)
+                on_release: root.change_button_image(self)
 
             Button:
                 name: 'continue_game'
@@ -41,8 +40,7 @@ WindowManager:
                 size_hint_y: 0.9
                 background_normal: 'Images/buttons/continue/button_normal.png'
                 background_down: 'Images/buttons/continue/button_press.png'
-                on_press: root.change_button_image(self, self.background_normal, self.background_down)
-                on_release: root.change_button_image(self, self.background_normal, self.background_down)
+                on_press: root.change_button_image(self)
 
             Button:
                 id: settings_button
@@ -50,7 +48,7 @@ WindowManager:
                 background_normal: 'Images/buttons/settings/button_normal.png'
                 background_down: 'Images/buttons/settings/button_press.png'
                 on_press: root.change_button_image(self, self.background_normal, self.background_down)
-                on_release: root.change_button_image(self, self.background_normal, self.background_down)
+                on_release: root.change_button_image(self)
 
 
             Button:
@@ -59,7 +57,7 @@ WindowManager:
                 background_normal: 'Images/buttons/exit/button_normal.png'
                 background_down: 'Images/buttons/exit/button_press.png'
                 on_press: root.change_button_image(self, self.background_normal, self.background_down)
-                on_release: root.change_button_image(self, self.background_normal, self.background_down)
+                on_release: root.change_button_image(self)
 
 <GameWindow>:
     name: 'GameWindow'

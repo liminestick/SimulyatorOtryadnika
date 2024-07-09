@@ -2,7 +2,7 @@ import random
 import json
 import os
 
-PATH = 'data/shop.json'
+PATH = 'data/shops/shop.json'
 class ButtonShop():
     def __init__(self, name='', difficult='', profile='', post='', cost=0):
         self.name = name

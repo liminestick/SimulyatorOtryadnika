@@ -9,6 +9,7 @@ from kivy.uix.label import Label
 from kivy.properties import ObjectProperty, DictProperty
 from kivy.animation import Animation
 from kivy.clock import Clock
+from functools import partial
 import player
 import shop
 
@@ -21,13 +22,45 @@ main_shop.create_shop()
 
 class MainWindow(Screen):
 
-    def change_button_image(self, button, normal, down):
-        button.background_normal = normal
-        button.background_down = down
+    def change_button_image(self, button):
         if button.name == 'new_game':
-            self.manager.current = 'GameWindow'
+            if main_player.new_game:
+                self.manager.current = 'GameWindow'
+            else:
+                self.show_question()
         if button.name == 'continue_game':
             self.manager.current = 'MainGameWindow'
+
+    def show_question(self):
+        btn_yes = Button(text='', size_hint_y=0.3,
+                           background_normal='Images/answers/yes/button_normal.png',
+                           background_down='Images/answers/yes/button_press.png')
+        btn_no = Button(text='', size_hint_y=0.3,
+                           background_normal='Images/answers/no/button_normal.png',
+                           background_down='Images/answers/no/button_press.png')
+        bx_v = BoxLayout(orientation='vertical')
+        bx_h = BoxLayout(orientation='horizontal')
+        popup = Popup(title='', separator_color=(1, 1, 1, 0),
+                      size_hint=(0.7, 0.5),
+                      background='Images/popup/popup_normal.png',
+                      auto_dismiss=False)
+        lb = Label(text="У вас уже есть сохраненая игра. Хотите начать новую игру?",
+                   text_size=(bx_v.width*4, None),
+                   halign='center',
+                   font_name='fonts/EpilepsySansBold.ttf',
+                   font_size=25)
+        bx_v.add_widget(lb)
+        bx_v.add_widget(bx_h)
+        bx_h.add_widget(btn_yes)
+        bx_h.add_widget(btn_no)
+        popup.add_widget(bx_v)
+        btn_yes.bind(on_press=partial(self.start_game, element=popup))
+        btn_no.bind(on_press=popup.dismiss)
+        popup.open()
+
+    def start_game(self, *args, **kwargs):
+        kwargs['element'].dismiss()
+        self.manager.current = 'GameWindow'
 
 
 class GameWindow(Screen):
@@ -82,7 +115,7 @@ class GameWindow(Screen):
             play_game = False
 
         if play_game:
-            main_player.write_json()
+            main_player.new_game_write_json()
             self.manager.current = 'MainGameWindow'
         else:
             self.show_warning('Заполните все поля')
@@ -93,8 +126,7 @@ class GameWindow(Screen):
                            background_down='Images/answers/clear/button_press.png')
         bx = BoxLayout(orientation='vertical')
         popup = Popup(title='', separator_color=(1, 1, 1, 0),
-                      size_hint=(None, None),
-                      size=(400, 400),
+                      size_hint=(0.7, 0.5),
                       background='Images/popup/popup_normal.png',
                       auto_dismiss=False)
         popup.separator_color = (1, 1, 1, 0)
