@@ -45,10 +45,10 @@ class MainWindow(Screen):
                       background='Images/popup/popup_normal.png',
                       auto_dismiss=False)
         lb = Label(text="У вас уже есть сохраненая игра. Хотите начать новую игру?",
-                   text_size=(bx_v.width*4, None),
+                   text_size=(700, None),
                    halign='center',
                    font_name='fonts/EpilepsySansBold.ttf',
-                   font_size=25)
+                   font_size=60)
         bx_v.add_widget(lb)
         bx_v.add_widget(bx_h)
         bx_h.add_widget(btn_yes)
@@ -121,7 +121,7 @@ class GameWindow(Screen):
             self.show_warning('Заполните все поля')
 
     def show_warning(self, text_warning):
-        btn_close = Button(text='', size_hint_y=0.3,
+        btn_close = Button(text='', size_hint_y=0.2,
                            background_normal='Images/answers/clear/button_normal.png',
                            background_down='Images/answers/clear/button_press.png')
         bx = BoxLayout(orientation='vertical')
@@ -130,7 +130,11 @@ class GameWindow(Screen):
                       background='Images/popup/popup_normal.png',
                       auto_dismiss=False)
         popup.separator_color = (1, 1, 1, 0)
-        lb = Label(text=text_warning, font_name='fonts/EpilepsySansBold.ttf', font_size=25)
+        lb = Label(text=text_warning,
+                   font_name='fonts/EpilepsySansBold.ttf',
+                   font_size=60,
+                   halign='center',
+                   text_size=(700, None))
         bx.add_widget(lb)
         bx.add_widget(btn_close)
         popup.add_widget(bx)

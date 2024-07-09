@@ -22,7 +22,7 @@ WindowManager:
         BoxLayout:
             orientation: 'vertical'
             size_hint: (0.6, None)
-            size_hint_y: 0.5
+            size_hint_y: 0.45
             spacing: dp(15)
             pos_hint: {'center_x': 0.5, 'y': 0.1}  # Опускаем группу кнопок ниже
 
@@ -40,14 +40,13 @@ WindowManager:
                 size_hint_y: 0.9
                 background_normal: 'Images/buttons/continue/button_normal.png'
                 background_down: 'Images/buttons/continue/button_press.png'
-                on_press: root.change_button_image(self)
+                on_release: root.change_button_image(self)
 
             Button:
                 id: settings_button
                 size_hint_y: 0.9
                 background_normal: 'Images/buttons/settings/button_normal.png'
                 background_down: 'Images/buttons/settings/button_press.png'
-                on_press: root.change_button_image(self, self.background_normal, self.background_down)
                 on_release: root.change_button_image(self)
 
 
@@ -56,7 +55,6 @@ WindowManager:
                 size_hint_y: 0.9
                 background_normal: 'Images/buttons/exit/button_normal.png'
                 background_down: 'Images/buttons/exit/button_press.png'
-                on_press: root.change_button_image(self, self.background_normal, self.background_down)
                 on_release: root.change_button_image(self)
 
 <GameWindow>:
@@ -223,7 +221,7 @@ WindowManager:
         Button:
             id: new_game_button
             size_hint_x: 0.7
-            size_hint_y: 0.1
+            size_hint_y: 0.08
             background_normal: 'Images/buttons/startGame/button_normal.png'
             background_down: 'Images/buttons/startGame/button_press.png'
             pos_hint: {'center_x': 0.5, 'y': 0.2}
@@ -231,7 +229,7 @@ WindowManager:
 
         Button:
             size_hint_x: 0.6
-            size_hint_y: 0.08
+            size_hint_y: 0.07
             pos_hint: {'center_x': 0.5, 'y': 0.1}
             background_normal: 'Images/buttons/backToMainMenu/button_normal.png'
             background_down: 'Images/buttons/backToMainMenu/button_press.png'
@@ -496,7 +494,7 @@ WindowManager:
                         default_size: None, dp(56)
                         default_size_hint: 1, 1
                         size_hint_y: None
-                        height: dp(1500)
+                        height: dp(2000)
                         orientation: 'vertical'
 
 
