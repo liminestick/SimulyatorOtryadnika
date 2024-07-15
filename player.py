@@ -66,3 +66,23 @@ class Player():
         self.post = data['post']
         self.popularity = data['popularity']
         self.new_game = data['new_game']
+
+    def write_json(self):
+        dict_player = {
+            'name': self.name,
+            'gender': self.gender,
+            'age': self.age,
+            'profile': self.profile,
+            'difficult': self.difficult,
+            'name_brigade': self.name_brigade,
+            'health': self.health,
+            'hunger': self.hunger,
+            'mood': self.mood,
+            'money': self.money,
+            'special_money': self.special_money,
+            'post': self.post,
+            'popularity': self.popularity,
+            'new_game': False}
+
+        with open(current_player_json, 'w', encoding='utf-8') as db_file:
+            json.dump(dict_player, db_file, ensure_ascii=False)

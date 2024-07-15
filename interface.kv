@@ -237,7 +237,7 @@ WindowManager:
 
 <MainGameWindow>:
     name: 'MainGameWindow'
-    on_enter: root.fill_data(text_health, text_hunger, text_money, text_mood, text_populyarity, text_supermoney, text_post)
+    on_enter: root.update_data()
     FloatLayout:
         canvas:
             Rectangle:
@@ -421,7 +421,7 @@ WindowManager:
                             source: 'Images/Indicators/hunger.png'
                             size: self.texture_size
                         Label:
-                            id: text_health
+                            id: text_hunger
                             text:'100'
                             font_name: 'fonts/EpilepsySansBold.ttf'
                             font_size: 90
@@ -432,7 +432,7 @@ WindowManager:
                             source: 'Images/Indicators/money.png'
                             size: self.texture_size
                         Label:
-                            id: text_health
+                            id: text_money
                             text:'100'
                             font_name: 'fonts/EpilepsySansBold.ttf'
                             font_size: 90
@@ -443,7 +443,7 @@ WindowManager:
                             source: 'Images/Indicators/mood.png'
                             size: self.texture_size
                         Label:
-                            id: text_health
+                            id: text_mood
                             text:'100'
                             font_name: 'fonts/EpilepsySansBold.ttf'
                             font_size: 90
@@ -454,7 +454,7 @@ WindowManager:
                             source: 'Images/Indicators/populyarity.png'
                             size: self.texture_size
                         Label:
-                            id: text_health
+                            id: text_populyarity
                             text:'100'
                             font_name: 'fonts/EpilepsySansBold.ttf'
                             font_size: 90
@@ -465,7 +465,7 @@ WindowManager:
                             source: 'Images/Indicators/supermoney.png'
                             size: self.texture_size
                         Label:
-                            id: text_health
+                            id: text_supermoney
                             text:'100'
                             font_name: 'fonts/EpilepsySansBold.ttf'
                             font_size: 90

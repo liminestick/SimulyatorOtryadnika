@@ -1,3 +1,5 @@
+import random
+
 from kivy.app import App
 from kivy.config import Config
 from kivy.lang import Builder
@@ -144,14 +146,15 @@ class GameWindow(Screen):
 
 class MainGameWindow(Screen):
 
-    def fill_data(self, text_health, text_hunger, text_money, text_mood, text_populyarity, text_supermoney, text_post):
-        text_health.text = str(main_player.health)
-        text_hunger.text = str(main_player.hunger)
-        text_money.text = str(main_player.money)
-        text_mood.text = str(main_player.mood)
-        text_populyarity.text = str(main_player.popularity)
-        text_supermoney.text = str(main_player.special_money)
-        text_post.text = "Должность: " + str(main_player.post)
+    def update_data(self):
+        self.ids['text_health'].text = str(main_player.health)
+        self.ids['text_hunger'].text = str(main_player.hunger)
+        self.ids['text_money'].text = str(main_player.money)
+        self.ids['text_mood'].text = str(main_player.mood)
+        self.ids['text_populyarity'].text = str(main_player.popularity)
+        self.ids['text_supermoney'].text = str(main_player.special_money)
+        self.ids['text_post'].text = "Должность: " + str(main_player.post)
+        main_player.write_json()
 
     def shop_screen(self):
         self.manager.current = 'ShopGameWindow'
@@ -173,20 +176,91 @@ class ShopGameWindow(Screen):
 
     def on_enter(self, *args):
         Clock.schedule_once(self.change_screen)
+        self.update_data()
+        main_player.write_json()
 
     def change_screen(self, dt):
         global main_shop
         list_button = []
         for button in main_shop.list_button:
-            btn = {'text': str(button.name), 'player_image': self.ids['player_image']}
+            probability = []
+            for element in button.issue:
+                a = element['Вреоятность']
+                while a > 0:
+                    probability.append(element['Вреоятность'])
+                    a -= 1
+
+            btn = {'text': str(button.name),
+                   'player_image': self.ids['player_image'],
+                   'screen': self,
+                   'issue': button.issue,
+                   'probability': probability}
             list_button.append(btn)
         self.ids['listButtonView'].data = list_button
 
+    def update_data(self):
+        self.ids['text_health'].text = str(main_player.health)
+        self.ids['text_hunger'].text = str(main_player.hunger)
+        self.ids['text_money'].text = str(main_player.money)
+        self.ids['text_mood'].text = str(main_player.mood)
+        self.ids['text_populyarity'].text = str(main_player.popularity)
+        self.ids['text_supermoney'].text = str(main_player.special_money)
+
 class CustomButton(Button):
-    def on_release(self):
+    def on_release(self, *args, **kwargs):
         self.player_image.source = 'Images/gif/actions/PlayerPlusMoney.zip'
         self.player_image.anim_delay = 0.04
         self.player_image.reload()
+        number = random.choice(self.probability)
+        issue = ''
+        for element in self.issue:
+            if element['Вреоятность'] == number:
+                issue = element
+                text_message = element['Текст']
+                break
+        if issue['Оповещение'] == True:
+            self.show_warning(text_message)
+            #Нужно показать текст исхода
+        self.changes(issue, self.screen)
+        self.screen.update_data()
+
+    def changes(self, issue, screen):
+        for i in issue['Изменения']:
+            if i == 'Голод':
+                main_player.hunger = main_player.hunger + int(issue['Изменения']['Голод'])
+            elif i == 'Настроение':
+                main_player.mood = main_player.mood + int(issue['Изменения']['Настроение'])
+            elif i == 'Здоровье':
+                main_player.health = main_player.health + int(issue['Изменения']['Здоровье'])
+            elif i == 'Деньги':
+                main_player.money = main_player.money + int(issue['Изменения']['Деньги'])
+            elif i == 'СуперДеньги':
+                main_player.special_money = main_player.special_money + int(issue['Изменения']['СуперДеньги'])
+            elif i == 'Популярность':
+                main_player.popularity = main_player.popularity + int(issue['Изменения']['Популярность'])
+
+    def show_warning(self, text_warning):
+        btn_close = Button(text='', size_hint_y=0.2,
+                           background_normal='Images/answers/clear/button_normal.png',
+                           background_down='Images/answers/clear/button_press.png')
+        bx = BoxLayout(orientation='vertical')
+        popup = Popup(title='', separator_color=(1, 1, 1, 0),
+                      size_hint=(0.7, 0.5),
+                      background='Images/popup/popup_normal.png',
+                      auto_dismiss=False)
+        popup.separator_color = (1, 1, 1, 0)
+        lb = Label(text=text_warning,
+                   font_name='fonts/EpilepsySansBold.ttf',
+                   font_size=60,
+                   halign='center',
+                   text_size=(700, None))
+        bx.add_widget(lb)
+        bx.add_widget(btn_close)
+        popup.add_widget(bx)
+        btn_close.bind(on_press=popup.dismiss)
+        popup.open()
+
+
 
 class WindowManager(ScreenManager):
     pass
