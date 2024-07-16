@@ -146,7 +146,7 @@ class GameWindow(Screen):
 
 class MainGameWindow(Screen):
 
-    def update_data(self):
+    def update_data(self, rect_back):
         self.ids['text_health'].text = str(main_player.health)
         self.ids['text_hunger'].text = str(main_player.hunger)
         self.ids['text_money'].text = str(main_player.money)
@@ -154,6 +154,11 @@ class MainGameWindow(Screen):
         self.ids['text_populyarity'].text = str(main_player.popularity)
         self.ids['text_supermoney'].text = str(main_player.special_money)
         self.ids['text_post'].text = "Должность: " + str(main_player.post)
+        c_g = rect_back.get_group('rect_back')
+        if main_player.current_time_of_day == 'day':
+            c_g[0].size = (0, 0)
+        else:
+            c_g[0].size = self.size
         main_player.write_json()
 
     def shop_screen(self):
@@ -168,16 +173,19 @@ class MainGameWindow(Screen):
     def add_button2(self):
         pass
 
+    def change_day(self, rect_back):
+        c_g = rect_back.get_group('rect_back')
+        if main_player.current_time_of_day == 'day':
+            main_player.current_time_of_day = 'night'
+            c_g[0].size = self.size
+        else:
+            main_player.current_time_of_day = 'day'
+            c_g[0].size = (0, 0)
 
 class ShopGameWindow(Screen):
 
     def back(self):
         self.manager.current = 'MainGameWindow'
-
-    def on_enter(self, *args):
-        Clock.schedule_once(self.change_screen)
-        self.update_data()
-        main_player.write_json()
 
     def change_screen(self, dt):
         global main_shop
@@ -198,13 +206,21 @@ class ShopGameWindow(Screen):
             list_button.append(btn)
         self.ids['listButtonView'].data = list_button
 
-    def update_data(self):
+    def update_data(self, rect_back):
+        Clock.schedule_once(self.change_screen)
         self.ids['text_health'].text = str(main_player.health)
         self.ids['text_hunger'].text = str(main_player.hunger)
         self.ids['text_money'].text = str(main_player.money)
         self.ids['text_mood'].text = str(main_player.mood)
         self.ids['text_populyarity'].text = str(main_player.popularity)
         self.ids['text_supermoney'].text = str(main_player.special_money)
+        if rect_back != False:
+            c_g = rect_back.get_group('rect_back')
+            if main_player.current_time_of_day == 'day':
+                c_g[0].size = (0, 0)
+            else:
+                c_g[0].size = self.size
+        main_player.write_json()
 
 class CustomButton(Button):
     def on_release(self, *args, **kwargs):
@@ -222,7 +238,7 @@ class CustomButton(Button):
             self.show_warning(text_message)
             #Нужно показать текст исхода
         self.changes(issue, self.screen)
-        self.screen.update_data()
+        self.screen.update_data(False)
 
     def changes(self, issue, screen):
         for i in issue['Изменения']:

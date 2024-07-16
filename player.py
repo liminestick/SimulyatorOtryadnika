@@ -18,6 +18,8 @@ class Player():
         self.mood = 100
         self.money = 50
         self.special_money = 0
+        self.days_lived = 0,
+        self.current_time_of_day = 'day',
         self.post = 'Кандидат'
         self.popularity = 1
         self.new_game = True
@@ -34,6 +36,8 @@ class Player():
             'hunger': self.hunger,
             'mood': self.mood,
             'money': self.money,
+            'days_lived': self.days_lived,
+            'current_time_of_day': self.current_time_of_day,
             'special_money': self.special_money,
             'post': self.post,
             'popularity': self.popularity,
@@ -62,6 +66,8 @@ class Player():
         self.hunger = data['hunger']
         self.mood = data['mood']
         self.money = data['money']
+        self.days_lived = data['days_lived']
+        self.current_time_of_day = data['current_time_of_day']
         self.special_money = data['special_money']
         self.post = data['post']
         self.popularity = data['popularity']
@@ -79,6 +85,8 @@ class Player():
             'hunger': self.hunger,
             'mood': self.mood,
             'money': self.money,
+            'days_lived': self.days_lived,
+            'current_time_of_day': self.current_time_of_day,
             'special_money': self.special_money,
             'post': self.post,
             'popularity': self.popularity,

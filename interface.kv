@@ -237,11 +237,18 @@ WindowManager:
 
 <MainGameWindow>:
     name: 'MainGameWindow'
-    on_enter: root.update_data()
+    on_enter: root.update_data(background.canvas)
     FloatLayout:
+        id:background
         canvas:
             Rectangle:
-                source: 'Images/backgrounds/main_game_background.png'
+                source: 'Images/backgrounds/main_game_background_day.png'
+                size: self.size
+                pos: self.pos
+
+            Rectangle:
+                group: 'rect_back'
+                source: 'Images/backgrounds/main_game_background_night.png'
                 size: self.size
                 pos: self.pos
 
@@ -383,12 +390,25 @@ WindowManager:
                 background_down: 'Images/buttons/main_menu/button_press.png'
                 on_press: root.manager.current = 'MainWindow'
 
+            Button:
+                background_normal: 'Images/buttons/day_night/button_normal.png'
+                background_down: 'Images/buttons/day_night/button_press.png'
+                on_release:root.change_day(background.canvas)
+
 <ShopGameWindow>:
     name: 'ShopGameWindow'
+    on_enter: root.update_data(background.canvas)
     FloatLayout:
+        id:background
         canvas:
             Rectangle:
-                source: 'Images/backgrounds/main_game_background.png'
+                source: 'Images/backgrounds/main_game_background_day.png'
+                size: self.size
+                pos: self.pos
+
+            Rectangle:
+                group: 'rect_back'
+                source: 'Images/backgrounds/main_game_background_night.png'
                 size: self.size
                 pos: self.pos
 
