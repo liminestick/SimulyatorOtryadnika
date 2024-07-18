@@ -14,9 +14,9 @@ class Player():
         self.difficult = difficult
         self.name_brigade = name_brigade
         self.health = 100
-        self.hunger = 100
-        self.mood = 100
-        self.money = 50
+        self.hunger = 20
+        self.mood = 20
+        self.money = 10
         self.special_money = 0
         self.days_lived = 0
         self.current_time_of_day = 'day'
