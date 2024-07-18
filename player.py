@@ -6,7 +6,7 @@ new_game_data = 'data/game_data/new_game_data.json'
 current_player_json = 'data/game_data/current_player.json'
 
 class Player():
-    def __init__(self, name='', gender='', age='', profile='', difficult='', name_brigade=''):
+    def __init__(self, name='', gender='', age='', profile='', difficult='', name_brigade='', current_time_of_day=''):
         self.name = name
         self.gender = gender
         self.age = age
@@ -18,8 +18,8 @@ class Player():
         self.mood = 100
         self.money = 50
         self.special_money = 0
-        self.days_lived = 0,
-        self.current_time_of_day = 'day',
+        self.days_lived = 0
+        self.current_time_of_day = 'day'
         self.post = 'Кандидат'
         self.popularity = 1
         self.new_game = True

@@ -3,14 +3,18 @@ import json
 import os
 
 PATH = 'data/shops/shop.json'
+
+
 class ButtonShop():
-    def __init__(self, name='', difficult='', profile='', post='', cost=0):
+    def __init__(self, name='', difficult='', profile='', post='', cost=0, background_normal='', background_down=''):
         self.name = name
         self.difficult = difficult
         self.profile = profile
         self.post = post
-        self.cost = cost
+        self.background_normal = background_normal
+        self.background_down = background_down
         self.issue = []
+
 
 class Shop():
     def __init__(self):
@@ -35,4 +39,8 @@ class Shop():
                             button_shop.profile = data[i][j]
                         elif j.startswith('Исход'):
                             button_shop.issue.append(data[i][j])
+                        elif j.startswith('КартинкаНормальная'):
+                            button_shop.background_normal = data[i][j]
+                        elif j.startswith('КартинкаНажата'):
+                            button_shop.background_down = data[i][j]
                     self.list_button.append(button_shop)

@@ -55,7 +55,7 @@ WindowManager:
                 size_hint_y: 0.9
                 background_normal: 'Images/buttons/exit/button_normal.png'
                 background_down: 'Images/buttons/exit/button_press.png'
-                on_release: root.change_button_image(self)
+                on_release: app.stop()
 
 <GameWindow>:
     name: 'GameWindow'
@@ -249,7 +249,7 @@ WindowManager:
             Rectangle:
                 group: 'rect_back'
                 source: 'Images/backgrounds/main_game_background_night.png'
-                size: self.size
+                size: 0,0
                 pos: self.pos
 
         BoxLayout:
@@ -335,7 +335,14 @@ WindowManager:
                 text:''
                 font_name: 'fonts/EpilepsySansBold.ttf'
                 font_size: 80
-
+        BoxLayout:
+            orientation: 'horizontal'
+            pos_hint:{'x':0,'y': 0.3}
+            Label:
+                id:text_days_lived
+                text:'Дней прожито: 2'
+                font_name: 'fonts/EpilepsySansBold.ttf'
+                font_size: 80
         BoxLayout:
             orientation: 'horizontal'
             pos_hint:{'top': 0.8}
@@ -409,10 +416,10 @@ WindowManager:
             Rectangle:
                 group: 'rect_back'
                 source: 'Images/backgrounds/main_game_background_night.png'
-                size: self.size
+                size: 0,0
                 pos: self.pos
 
-        spacing:dp(15)
+        spacing:dp(10)
         BoxLayout:
             orientation: 'vertical'
             spacing:dp(15)
@@ -500,6 +507,33 @@ WindowManager:
                     allow_stretch: True
 
             BoxLayout:
+                size_hint_y: 0.03
+                size_hint_x: 0.95
+                pos_hint:{'center_x': 0.5}
+                orientation:'horizontal'
+                spacing:dp(10)
+
+                Button:
+                    background_normal: 'Images/buttons/shop/chapter/product/button_normal.png'
+                    background_down: 'Images/buttons/shop/chapter/product/button_press.png'
+                Button:
+                    background_normal: 'Images/buttons/shop/chapter/pharmacy/button_normal.png'
+                    background_down: 'Images/buttons/shop/chapter/pharmacy/button_press.png'
+
+            BoxLayout:
+                size_hint_y: 0.03
+                size_hint_x: 0.95
+                pos_hint:{'center_x': 0.5}
+                orientation:'horizontal'
+                spacing:dp(10)
+                Button:
+                    background_normal: 'Images/buttons/shop/chapter/attribute/button_normal.png'
+                    background_down: 'Images/buttons/shop/chapter/attribute/button_press.png'
+                Button:
+                    background_normal: 'Images/buttons/shop/chapter/quest/button_normal.png'
+                    background_down: 'Images/buttons/shop/chapter/quest/button_press.png'
+
+            BoxLayout:
                 id: list_button
                 orientation:'vertical'
                 pos_hint:{'center_x': 0.5,'top': 0.35}
@@ -514,16 +548,18 @@ WindowManager:
                         default_size: None, dp(56)
                         default_size_hint: 1, 1
                         size_hint_y: None
-                        height: dp(2000)
+                        height: dp(1500)
                         orientation: 'vertical'
 
 
             BoxLayout:
-                size_hint_y: 0.06
+                size_hint_y: 0.05
+                size_hint_x: 0.8
+                pos_hint:{'center_x': 0.5}
                 orientation:'horizontal'
                 spacing:dp(15)
 
                 Button:
-                    background_normal: 'Images/buttons/event/button_normal.png'
-                    background_down: 'Images/buttons/event/button_press.png'
+                    background_normal: 'Images/buttons/back/button_normal.png'
+                    background_down: 'Images/buttons/back/button_press.png'
                     on_press: root.back()

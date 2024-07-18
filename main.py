@@ -105,12 +105,12 @@ class GameWindow(Screen):
             main_player.profile = profile_spinner.text
         else:
             play_game = False
-            
+
         if difficulty_spinner.state_image != 'Images/difficult/normal.png':
             main_player.difficult = difficulty_spinner.text
         else:
             play_game = False
-            
+
         if text_name_brigade.text != '':
             main_player.name_brigade = text_name_brigade.text
         else:
@@ -154,11 +154,13 @@ class MainGameWindow(Screen):
         self.ids['text_populyarity'].text = str(main_player.popularity)
         self.ids['text_supermoney'].text = str(main_player.special_money)
         self.ids['text_post'].text = "Должность: " + str(main_player.post)
-        c_g = rect_back.get_group('rect_back')
-        if main_player.current_time_of_day == 'day':
-            c_g[0].size = (0, 0)
-        else:
-            c_g[0].size = self.size
+        self.ids['text_days_lived'].text = "Дней прожито: " + str(int(main_player.days_lived))
+        if rect_back != False:
+            c_g = rect_back.get_group('rect_back')
+            if main_player.current_time_of_day == 'day':
+                c_g[0].size = (0, 0)
+            else:
+                c_g[0].size = self.size
         main_player.write_json()
 
     def shop_screen(self):
@@ -174,6 +176,7 @@ class MainGameWindow(Screen):
         pass
 
     def change_day(self, rect_back):
+        main_player.days_lived += 0.5
         c_g = rect_back.get_group('rect_back')
         if main_player.current_time_of_day == 'day':
             main_player.current_time_of_day = 'night'
@@ -181,6 +184,7 @@ class MainGameWindow(Screen):
         else:
             main_player.current_time_of_day = 'day'
             c_g[0].size = (0, 0)
+        self.update_data(False)
 
 class ShopGameWindow(Screen):
 
@@ -198,10 +202,12 @@ class ShopGameWindow(Screen):
                     probability.append(element['Вреоятность'])
                     a -= 1
 
-            btn = {'text': str(button.name),
+            btn = {'text': '',
                    'player_image': self.ids['player_image'],
                    'screen': self,
                    'issue': button.issue,
+                   'background_normal': button.background_normal,
+                   'background_down': button.background_down,
                    'probability': probability}
             list_button.append(btn)
         self.ids['listButtonView'].data = list_button
@@ -229,14 +235,14 @@ class CustomButton(Button):
         self.player_image.reload()
         number = random.choice(self.probability)
         issue = ''
+        text_message = ''
         for element in self.issue:
             if element['Вреоятность'] == number:
                 issue = element
                 text_message = element['Текст']
                 break
-        if issue['Оповещение'] == True:
+        if issue['Оповещение']:
             self.show_warning(text_message)
-            #Нужно показать текст исхода
         self.changes(issue, self.screen)
         self.screen.update_data(False)
 
