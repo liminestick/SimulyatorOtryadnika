@@ -6,6 +6,7 @@
     "Стоимость": 2,
     "КартинкаНормальная": "Images/buttons/shop/chapter/product/apple/button_normal.png",
     "КартинкаНажата": "Images/buttons/shop/chapter/product/apple/button_press.png",
+    "Анимация": "Images/gif/actions/PlayerPlusHunger.zip",
     "Исход1":{
       "Текст": "Голод восполняется на 2 еденицы",
       "Вреоятность": 95,
@@ -32,6 +33,7 @@
     "Стоимость": "5₽",
     "КартинкаНормальная": "Images/buttons/shop/chapter/product/doshirak/button_normal.png",
     "КартинкаНажата": "Images/buttons/shop/chapter/product/doshirak/button_press.png",
+    "Анимация": "Images/gif/actions/PlayerPlusHunger.zip",
     "Исход1":{
       "Текст": "Голод восстанавливается на 5 едениц",
       "Вреоятность": 70,
@@ -67,6 +69,7 @@
     "Стоимость": "8₽",
     "КартинкаНормальная": "Images/buttons/shop/chapter/product/sandwich/button_normal.png",
     "КартинкаНажата": "Images/buttons/shop/chapter/product/sandwich/button_press.png",
+    "Анимация": "Images/gif/actions/PlayerPlusHunger.zip",
     "Исход1":{
       "Текст": "Голод восстанавливается на 5 едениц",
       "Вреоятность": 91,

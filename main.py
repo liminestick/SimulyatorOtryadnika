@@ -205,6 +205,7 @@ class ShopGameWindow(Screen):
             btn = {'text': '',
                    'player_image': self.ids['player_image'],
                    'screen': self,
+                   'img_animation': button.img_animation,
                    'issue': button.issue,
                    'background_normal': button.background_normal,
                    'background_down': button.background_down,
@@ -230,8 +231,11 @@ class ShopGameWindow(Screen):
 
 class CustomButton(Button):
     def on_release(self, *args, **kwargs):
-        self.player_image.source = 'Images/gif/actions/PlayerPlusMoney.zip'
-        self.player_image.anim_delay = 0.04
+        if self.img_animation != '':
+            self.player_image.source = self.img_animation
+        else:
+            self.player_image.source = 'Images/player/normal/normal.png'
+        self.player_image.anim_delay = 0.07
         self.player_image.reload()
         number = random.choice(self.probability)
         issue = ''

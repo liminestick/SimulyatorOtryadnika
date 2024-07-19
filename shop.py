@@ -6,11 +6,12 @@ PATH = 'data/shops/shop.json'
 
 
 class ButtonShop():
-    def __init__(self, name='', difficult='', profile='', post='', cost=0, background_normal='', background_down=''):
+    def __init__(self, name='', difficult='', profile='', post='', cost=0, background_normal='', background_down='', img_animation=''):
         self.name = name
         self.difficult = difficult
         self.profile = profile
         self.post = post
+        self.img_animation = img_animation
         self.background_normal = background_normal
         self.background_down = background_down
         self.issue = []
@@ -37,6 +38,8 @@ class Shop():
                             button_shop.profile = data[i][j]
                         elif j == 'Стоимость':
                             button_shop.profile = data[i][j]
+                        elif j == 'Анимация':
+                            button_shop.img_animation = data[i][j]
                         elif j.startswith('Исход'):
                             button_shop.issue.append(data[i][j])
                         elif j.startswith('КартинкаНормальная'):
