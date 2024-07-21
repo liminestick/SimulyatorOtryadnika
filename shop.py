@@ -2,7 +2,7 @@ import random
 import json
 import os
 
-PATH = 'data/shops/shop.json'
+PATH = 'data/shop/'
 
 
 class ButtonShop():
