@@ -1,15 +1,13 @@
 import random
 
 from kivy.app import App
-from kivy.config import Config
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
-from kivy.properties import ObjectProperty, DictProperty
-from kivy.animation import Animation
+from kivy.properties import DictProperty
 from kivy.clock import Clock
 from functools import partial
 import player
@@ -193,34 +191,34 @@ class ShopGameWindow(Screen):
 
     def change_screen(self, dt):
         global main_shop
-        list_button = []
-        for button in main_shop.list_button:
-            probability = []
-            for element in button.issue:
-                a = element['Вреоятность']
-                while a > 0:
-                    probability.append(element['Вреоятность'])
-                    a -= 1
+        list_button = {}
 
-            btn = {'text': '',
-                   'player_image': self.ids['player_image'],
-                   'screen': self,
-                   'img_animation': button.img_animation,
-                   'issue': button.issue,
-                   'background_normal': button.background_normal,
-                   'background_down': button.background_down,
-                   'probability': probability}
-            list_button.append(btn)
-        self.ids['listButtonView'].data = list_button
+        for i in main_shop.list_button:
+            list_btn = []
+            for button in main_shop.list_button[i]:
+                probability = []
+                for element in button.issue:
+                    a = element['Вреоятность']
+                    while a > 0:
+                        probability.append(element['Вреоятность'])
+                        a -= 1
+
+                btn = {'text': '',
+                       'player_image': self.ids['player_image'],
+                       'screen': self,
+                       'img_animation': button.img_animation,
+                       'issue': button.issue,
+                       'background_normal': button.background_normal,
+                       'background_down': button.background_down,
+                       'probability': probability}
+                list_btn.append(btn)
+            list_button[i] = list_btn
+        main_shop.screen_btn = list_button
+        self.ids['listButtonView'].data = main_shop.screen_btn['product']
 
     def update_data(self, rect_back):
+        self.update_text()
         Clock.schedule_once(self.change_screen)
-        self.ids['text_health'].text = str(main_player.health)
-        self.ids['text_hunger'].text = str(main_player.hunger)
-        self.ids['text_money'].text = str(main_player.money)
-        self.ids['text_mood'].text = str(main_player.mood)
-        self.ids['text_populyarity'].text = str(main_player.popularity)
-        self.ids['text_supermoney'].text = str(main_player.special_money)
         if rect_back != False:
             c_g = rect_back.get_group('rect_back')
             if main_player.current_time_of_day == 'day':
@@ -228,6 +226,18 @@ class ShopGameWindow(Screen):
             else:
                 c_g[0].size = self.size
         main_player.write_json()
+
+    def update_text(self):
+        self.ids['text_health'].text = str(main_player.health)
+        self.ids['text_hunger'].text = str(main_player.hunger)
+        self.ids['text_money'].text = str(main_player.money)
+        self.ids['text_mood'].text = str(main_player.mood)
+        self.ids['text_populyarity'].text = str(main_player.popularity)
+        self.ids['text_supermoney'].text = str(main_player.special_money)
+
+    def changing_section(self, name_shop):
+        global main_shop
+        self.ids['listButtonView'].data = main_shop.screen_btn[name_shop]
 
 class CustomButton(Button):
     def on_release(self, *args, **kwargs):
@@ -248,7 +258,7 @@ class CustomButton(Button):
         if issue['Оповещение']:
             self.show_warning(text_message)
         self.changes(issue, self.screen)
-        self.screen.update_data(False)
+        self.screen.update_text()
 
     def changes(self, issue, screen):
         for i in issue['Изменения']:
