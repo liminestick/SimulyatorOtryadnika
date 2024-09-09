@@ -33,11 +33,11 @@ class MainWindow(Screen):
 
     def show_question(self):
         btn_yes = Button(text='', size_hint_y=0.3,
-                           background_normal='Images/answers/yes/button_normal.png',
-                           background_down='Images/answers/yes/button_press.png')
+                         background_normal='Images/answers/yes/button_normal.png',
+                         background_down='Images/answers/yes/button_press.png')
         btn_no = Button(text='', size_hint_y=0.3,
-                           background_normal='Images/answers/no/button_normal.png',
-                           background_down='Images/answers/no/button_press.png')
+                        background_normal='Images/answers/no/button_normal.png',
+                        background_down='Images/answers/no/button_press.png')
         bx_v = BoxLayout(orientation='vertical')
         bx_h = BoxLayout(orientation='horizontal')
         popup = Popup(title='', separator_color=(1, 1, 1, 0),
@@ -118,39 +118,13 @@ class GameWindow(Screen):
             main_player.new_game_write_json()
             self.manager.current = 'MainGameWindow'
         else:
-            self.show_warning('Заполните все поля')
-
-    def show_warning(self, text_warning):
-        btn_close = Button(text='', size_hint_y=0.2,
-                           background_normal='Images/answers/clear/button_normal.png',
-                           background_down='Images/answers/clear/button_press.png')
-        bx = BoxLayout(orientation='vertical')
-        popup = Popup(title='', separator_color=(1, 1, 1, 0),
-                      size_hint=(0.7, 0.5),
-                      background='Images/popup/popup_normal.png',
-                      auto_dismiss=False)
-        popup.separator_color = (1, 1, 1, 0)
-        lb = Label(text=text_warning,
-                   font_name='fonts/EpilepsySansBold.ttf',
-                   font_size=60,
-                   halign='center',
-                   text_size=(700, None))
-        bx.add_widget(lb)
-        bx.add_widget(btn_close)
-        popup.add_widget(bx)
-        btn_close.bind(on_press=popup.dismiss)
-        popup.open()
+            show_warning('Заполните все поля')
 
 
 class MainGameWindow(Screen):
 
     def update_data(self, rect_back):
-        self.ids['text_health'].text = str(main_player.health)
-        self.ids['text_hunger'].text = str(main_player.hunger)
-        self.ids['text_money'].text = str(main_player.money)
-        self.ids['text_mood'].text = str(main_player.mood)
-        self.ids['text_populyarity'].text = str(main_player.popularity)
-        self.ids['text_supermoney'].text = str(main_player.special_money)
+        update_basic_attributes(self)
         self.ids['text_post'].text = "Должность: " + str(main_player.post)
         self.ids['text_days_lived'].text = "Дней прожито: " + str(int(main_player.days_lived))
         if rect_back != False:
@@ -183,6 +157,7 @@ class MainGameWindow(Screen):
             main_player.current_time_of_day = 'day'
             c_g[0].size = (0, 0)
         self.update_data(False)
+
 
 class ShopGameWindow(Screen):
 
@@ -228,16 +203,12 @@ class ShopGameWindow(Screen):
         main_player.write_json()
 
     def update_text(self):
-        self.ids['text_health'].text = str(main_player.health)
-        self.ids['text_hunger'].text = str(main_player.hunger)
-        self.ids['text_money'].text = str(main_player.money)
-        self.ids['text_mood'].text = str(main_player.mood)
-        self.ids['text_populyarity'].text = str(main_player.popularity)
-        self.ids['text_supermoney'].text = str(main_player.special_money)
+        update_basic_attributes(self)
 
     def changing_section(self, name_shop):
         global main_shop
         self.ids['listButtonView'].data = main_shop.screen_btn[name_shop]
+
 
 class CustomButton(Button):
     def on_release(self, *args, **kwargs):
@@ -256,7 +227,7 @@ class CustomButton(Button):
                 text_message = element['Текст']
                 break
         if issue['Оповещение']:
-            self.show_warning(text_message)
+            show_warning(text_message)
         self.changes(issue, self.screen)
         self.screen.update_text()
 
@@ -275,31 +246,39 @@ class CustomButton(Button):
             elif i == 'Популярность':
                 main_player.popularity = main_player.popularity + int(issue['Изменения']['Популярность'])
 
-    def show_warning(self, text_warning):
-        btn_close = Button(text='', size_hint_y=0.2,
-                           background_normal='Images/answers/clear/button_normal.png',
-                           background_down='Images/answers/clear/button_press.png')
-        bx = BoxLayout(orientation='vertical')
-        popup = Popup(title='', separator_color=(1, 1, 1, 0),
-                      size_hint=(0.7, 0.5),
-                      background='Images/popup/popup_normal.png',
-                      auto_dismiss=False)
-        popup.separator_color = (1, 1, 1, 0)
-        lb = Label(text=text_warning,
-                   font_name='fonts/EpilepsySansBold.ttf',
-                   font_size=60,
-                   halign='center',
-                   text_size=(700, None))
-        bx.add_widget(lb)
-        bx.add_widget(btn_close)
-        popup.add_widget(bx)
-        btn_close.bind(on_press=popup.dismiss)
-        popup.open()
-
-
 
 class WindowManager(ScreenManager):
     pass
+
+
+def show_warning(text_warning):
+    btn_close = Button(text='', size_hint_y=0.2,
+                       background_normal='Images/answers/clear/button_normal.png',
+                       background_down='Images/answers/clear/button_press.png')
+    bx = BoxLayout(orientation='vertical')
+    popup = Popup(title='', separator_color=(1, 1, 1, 0),
+                  size_hint=(0.7, 0.5),
+                  background='Images/popup/popup_normal.png',
+                  auto_dismiss=False)
+    popup.separator_color = (1, 1, 1, 0)
+    lb = Label(text=text_warning,
+               font_name='fonts/EpilepsySansBold.ttf',
+               font_size=60,
+               halign='center',
+               text_size=(700, None))
+    bx.add_widget(lb)
+    bx.add_widget(btn_close)
+    popup.add_widget(bx)
+    btn_close.bind(on_press=popup.dismiss)
+    popup.open()
+
+def update_basic_attributes(screen):
+    screen.ids['text_health'].text = str(main_player.health)
+    screen.ids['text_hunger'].text = str(main_player.hunger)
+    screen.ids['text_money'].text = str(main_player.money)
+    screen.ids['text_mood'].text = str(main_player.mood)
+    screen.ids['text_populyarity'].text = str(main_player.popularity)
+    screen.ids['text_supermoney'].text = str(main_player.special_money)
 
 
 kv = Builder.load_file('interface.kv')
