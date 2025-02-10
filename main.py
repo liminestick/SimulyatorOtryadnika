@@ -13,12 +13,13 @@ from functools import partial
 import player
 import shop
 
+#При запускае игры читаем данные игрока и создаем объект под данным из файла
 main_player = player.Player()
 main_player.read_json()
 
+#При запуске игры собираем магазин и создаем объект магазина
 main_shop = shop.Shop()
 main_shop.create_shop()
-
 
 class MainWindow(Screen):
 
@@ -183,9 +184,13 @@ class ShopGameWindow(Screen):
                        'screen': self,
                        'img_animation': button.img_animation,
                        'issue': button.issue,
-                       'background_normal': button.background_normal,
-                       'background_down': button.background_down,
                        'probability': probability}
+                if button.background_normal != '':
+                    btn['background_normal'] = button.background_normal
+                    btn['background_down'] = button.background_down
+                else:
+                    btn['text'] = button.name
+
                 list_btn.append(btn)
             list_button[i] = list_btn
         main_shop.screen_btn = list_button
