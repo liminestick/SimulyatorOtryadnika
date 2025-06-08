@@ -6,23 +6,27 @@ new_game_data = 'data/game_data/new_game_data.json'
 current_player_json = 'data/game_data/current_player.json'
 
 class Player():
-    def __init__(self, name='', gender='', age='', profile='', difficult='', name_brigade='', current_time_of_day=''):
-        self.name = name
-        self.gender = gender
-        self.age = age
-        self.profile = profile
-        self.difficult = difficult
-        self.name_brigade = name_brigade
-        self.health = 100
-        self.hunger = 20
-        self.mood = 20
-        self.money = 0
-        self.special_money = 0
-        self.days_lived = 0
-        self.current_time_of_day = 'day'
-        self.post = 'Кандидат'
-        self.popularity = 1
-        self.new_game = True
+    def __init__(self, **kwargs):
+        # Установка базовых значений по умолчанию
+        self.name = kwargs.get('name', '')
+        self.gender = kwargs.get('gender', '')
+        self.age = kwargs.get('age', 0)
+        self.profile = kwargs.get('profile', '')
+        self.difficult = kwargs.get('difficult', '')
+        self.name_brigade = kwargs.get('name_brigade', '')
+        self.current_time_of_day = kwargs.get('current_time_of_day', 'day')
+
+        # Статы
+        self.health = kwargs.get('health', 100)
+        self.hunger = kwargs.get('hunger', 20)
+        self.mood = kwargs.get('mood', 20)
+        self.money = kwargs.get('money', 0)
+        self.special_money = kwargs.get('special_money', 0)
+        self.days_lived = kwargs.get('days_lived', 0)
+        self.post = kwargs.get('post', 'Кандидат')
+        self.popularity = kwargs.get('popularity', 1)
+        self.modifier = kwargs.get('modifier', [{"Здоровье": "+2", "Настроение": "+2"}])
+        self.new_game = kwargs.get('new_game', True)
 
     def new_game_write_json(self):
         dict_player = {
@@ -40,6 +44,7 @@ class Player():
             'current_time_of_day': self.current_time_of_day,
             'special_money': self.special_money,
             'post': self.post,
+            'modifier': self.modifier,
             'popularity': self.popularity,
             'new_game': False}
 
@@ -70,6 +75,7 @@ class Player():
         self.current_time_of_day = data['current_time_of_day']
         self.special_money = data['special_money']
         self.post = data['post']
+        self.modifier = data['modifier']
         self.popularity = data['popularity']
         self.new_game = data['new_game']
 
@@ -89,6 +95,7 @@ class Player():
             'current_time_of_day': self.current_time_of_day,
             'special_money': self.special_money,
             'post': self.post,
+            'modifier': self.modifier,
             'popularity': self.popularity,
             'new_game': False}
 

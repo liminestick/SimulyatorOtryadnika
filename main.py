@@ -1,3 +1,4 @@
+import json
 import random
 
 from kivy.app import App
@@ -20,6 +21,15 @@ main_player.read_json()
 #При запуске игры собираем магазин и создаем объект магазина
 main_shop = shop.Shop()
 main_shop.create_shop()
+
+def read_modife():
+    path_to_mod = "data/game_data/modifier_item.json"
+    with open(path_to_mod, 'r', encoding='utf-8') as file:
+        modife = json.load(file)
+
+    return modife
+
+dict_mod = read_modife()
 
 class MainWindow(Screen):
 
@@ -157,6 +167,7 @@ class MainGameWindow(Screen):
         else:
             main_player.current_time_of_day = 'day'
             c_g[0].size = (0, 0)
+            check_player(main_player)
         self.update_data(False)
 
 
@@ -174,9 +185,9 @@ class ShopGameWindow(Screen):
             for button in main_shop.list_button[i]:
                 probability = []
                 for element in button.issue:
-                    a = element['Вреоятность']
+                    a = element['Вероятность']
                     while a > 0:
-                        probability.append(element['Вреоятность'])
+                        probability.append(element['Вероятность'])
                         a -= 1
 
                 btn = {'text': '',
@@ -227,12 +238,15 @@ class CustomButton(Button):
         issue = ''
         text_message = ''
         for element in self.issue:
-            if element['Вреоятность'] == number:
+            if element['Вероятность'] == number:
                 issue = element
                 text_message = element['Текст']
                 break
-        if issue['Оповещение']:
-            show_warning(text_message)
+        if issue.get('Оповещение', False):
+            show_warning(issue['Оповещение'])
+        if issue.get('Модификатор'):
+            modifier = issue['Модификатор']
+            add_modifier(main_player, modifier)
         self.changes(issue, self.screen)
         self.screen.update_text()
 
@@ -285,9 +299,28 @@ def update_basic_attributes(screen):
     screen.ids['text_populyarity'].text = str(main_player.popularity)
     screen.ids['text_supermoney'].text = str(main_player.special_money)
 
+def check_player(main_player):
+    check_modifier(main_player)
+
+def check_modifier(main_player):
+
+    if len(main_player.modifier) > 0:
+        for modif in main_player.modifier:
+            if "Здоровье" in modif:
+                main_player.health += + int(modif['Здоровье'])
+            if "Настроение" in modif:
+                main_player.mood += + int(modif['Настроение'])
+            if "Голод" in modif:
+                main_player.health += + int(modif['Голод'])
+            if "Деньги" in modif:
+                main_player.health += + int(modif['Деньги'])
+            if "Популярность" in modif:
+                main_player.health += + int(modif['Популярность'])
+
+def add_modifier(main_player, modifier):
+    pass
 
 kv = Builder.load_file('interface.kv')
-
 
 class MyApp(App):
     def build(self):

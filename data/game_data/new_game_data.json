@@ -8,6 +8,7 @@
   "hunger": 20,
   "mood": 20,
   "money": 0,
+  "modifier": []
   "days_lived": 0,
   "current_time_of_day": "day",
   "special_money": 0,
