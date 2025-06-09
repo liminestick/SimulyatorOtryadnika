@@ -243,7 +243,7 @@ class CustomButton(Button):
                 text_message = element['Текст']
                 break
         if issue.get('Оповещение', False):
-            show_warning(issue['Оповещение'])
+            show_warning(issue['Текст'])
         if issue.get('Модификатор'):
             modifier = issue['Модификатор']
             add_modifier(main_player, modifier)
@@ -303,22 +303,51 @@ def check_player(main_player):
     check_modifier(main_player)
 
 def check_modifier(main_player):
+    i = 0
+    while i < len(main_player.modifier):
+        modif = main_player.modifier[i]
 
-    if len(main_player.modifier) > 0:
-        for modif in main_player.modifier:
-            if "Здоровье" in modif:
-                main_player.health += + int(modif['Здоровье'])
-            if "Настроение" in modif:
-                main_player.mood += + int(modif['Настроение'])
-            if "Голод" in modif:
-                main_player.health += + int(modif['Голод'])
-            if "Деньги" in modif:
-                main_player.health += + int(modif['Деньги'])
-            if "Популярность" in modif:
-                main_player.health += + int(modif['Популярность'])
+        # Применяем эффекты модификатора к параметрам игрока
+        if "Здоровье" in modif:
+            main_player.health += int(modif["Здоровье"])
+        if "Настроение" in modif:
+            main_player.mood += int(modif["Настроение"])
+        if "Голод" in modif:
+            main_player.hunger += int(modif["Голод"])
+        if "Деньги" in modif:
+            main_player.money += int(modif["Деньги"])
+        if "Популярность" in modif:
+            main_player.popularity += int(modif["Популярность"])
+
+        # Уменьшаем длительность
+        if "Длительность" in modif:
+            modif["Длительность"] -= 1
+
+            # Если длительность закончилась — удаляем модификатор
+            if modif["Длительность"] <= 0:
+                main_player.modifier.pop(i)
+                continue  # пропускаем инкремент, так как элемент удален
+
+        i += 1  # переходим к следующему модификатору
 
 def add_modifier(main_player, modifier):
-    pass
+    # Получаем шаблон модификатора из общего словаря
+    new_modifier = dict_mod[modifier]
+
+    # Поиск существующего модификатора по НАЗВАНИЮ
+    for mod in main_player.modifier:
+        if mod["Название"] == new_modifier["Название"]:
+            # Обновляем длительность
+            mod["Длительность"] = new_modifier["Длительность"]
+            return
+
+    # Если не найден — проверяем, есть ли место для нового
+    if len(main_player.modifier) >= 5:
+        return
+
+    # Добавляем копию модификатора, чтобы не изменять оригинал в dict_mod
+    main_player.modifier.append(new_modifier.copy())
+
 
 kv = Builder.load_file('interface.kv')
 
