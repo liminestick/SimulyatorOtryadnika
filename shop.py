@@ -5,16 +5,20 @@ import os
 PATH = 'data/shop/'
 
 
-class ButtonShop():
-    def __init__(self, name='', difficult='', profile='', post='', cost=0, background_normal='', background_down='', img_animation=''):
-        self.name = name
-        self.difficult = difficult
-        self.profile = profile
-        self.post = post
-        self.img_animation = img_animation
-        self.background_normal = background_normal
-        self.background_down = background_down
-        self.issue = []
+class ButtonShop:
+    def __init__(self, **kwargs):
+        # Базовые атрибуты с дефолтными значениями
+        self.name = kwargs.get('name', '')
+        self.difficult = kwargs.get('difficult', '')
+        self.profile = kwargs.get('profile', '')
+        self.post = kwargs.get('post', '')
+        self.cost = int(kwargs.get('cost', 0))
+        self.background_normal = kwargs.get('background_normal', '')
+        self.background_down = kwargs.get('background_down', '')
+        self.img_animation = kwargs.get('img_animation', '')
+
+        # Список "issue" — если его нет, создаём пустой список
+        self.issue = kwargs.get('issue', [])
 
 
 class Shop():
@@ -43,9 +47,9 @@ class Shop():
                             elif j == 'Принадлежность':
                                 button_shop.profile = data[i][j]
                             elif j == 'Должность':
-                                button_shop.profile = data[i][j]
+                                button_shop.post = data[i][j]
                             elif j == 'Стоимость':
-                                button_shop.profile = data[i][j]
+                                button_shop.cost = data[i][j]
                             elif j == 'Анимация':
                                 button_shop.img_animation = data[i][j]
                             elif j.startswith('Исход'):

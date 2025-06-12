@@ -147,7 +147,10 @@ class MainGameWindow(Screen):
         main_player.write_json()
 
     def shop_screen(self):
-        self.manager.current = 'ShopGameWindow'
+        if is_section_blocked(main_player, "shop"):
+            show_warning("Данный раздел сегодня заблокирован. Приходите завтра")
+        else:
+            self.manager.current = 'ShopGameWindow'
 
         # Код чтобы скрывать и добавлять кнопки
         # btn_1 = Button(text='Кнопка')
@@ -168,6 +171,7 @@ class MainGameWindow(Screen):
             main_player.current_time_of_day = 'day'
             c_g[0].size = (0, 0)
             check_player(main_player)
+            check_block(main_player)
         self.update_data(False)
 
 
@@ -180,9 +184,9 @@ class ShopGameWindow(Screen):
         global main_shop
         list_button = {}
 
-        for i in main_shop.list_button:
+        for section in main_shop.list_button:
             list_btn = []
-            for button in main_shop.list_button[i]:
+            for button in main_shop.list_button[section]:
                 probability = []
                 for element in button.issue:
                     a = element['Вероятность']
@@ -193,6 +197,7 @@ class ShopGameWindow(Screen):
                 btn = {'text': '',
                        'player_image': self.ids['player_image'],
                        'screen': self,
+                       'section': section,
                        'img_animation': button.img_animation,
                        'issue': button.issue,
                        'probability': probability}
@@ -203,7 +208,7 @@ class ShopGameWindow(Screen):
                     btn['text'] = button.name
 
                 list_btn.append(btn)
-            list_button[i] = list_btn
+            list_button[section] = list_btn
         main_shop.screen_btn = list_button
         self.ids['listButtonView'].data = main_shop.screen_btn['product']
 
@@ -223,11 +228,17 @@ class ShopGameWindow(Screen):
 
     def changing_section(self, name_shop):
         global main_shop
-        self.ids['listButtonView'].data = main_shop.screen_btn[name_shop]
+        if is_section_blocked(main_player, name_shop):
+            show_warning('Этот раздел сегодня не доступен')
+        else:
+            self.ids['listButtonView'].data = main_shop.screen_btn[name_shop]
 
 
 class CustomButton(Button):
     def on_release(self, *args, **kwargs):
+        if is_section_blocked(main_player, self.section):
+            show_warning('Вам сегодня не доступна данная покупка')
+            return
         if self.img_animation != '':
             self.player_image.source = self.img_animation
         else:
@@ -247,6 +258,9 @@ class CustomButton(Button):
         if issue.get('Модификатор'):
             modifier = issue['Модификатор']
             add_modifier(main_player, modifier)
+        if issue.get('БлокировкаРазделов'):
+            list_section = issue['БлокировкаРазделов']
+            add_section_block(main_player, list_section)
         self.changes(issue, self.screen)
         self.screen.update_text()
 
@@ -302,6 +316,12 @@ def update_basic_attributes(screen):
 def check_player(main_player):
     check_modifier(main_player)
 
+def check_block(main_player):
+    main_player.section_block.clear()
+
+def is_section_blocked(main_player, section_name):
+    return section_name in main_player.section_block
+
 def check_modifier(main_player):
     i = 0
     while i < len(main_player.modifier):
@@ -347,6 +367,10 @@ def add_modifier(main_player, modifier):
 
     # Добавляем копию модификатора, чтобы не изменять оригинал в dict_mod
     main_player.modifier.append(new_modifier.copy())
+
+def add_section_block(main_player, list_section):
+    main_player.section_block += list_section
+
 
 
 kv = Builder.load_file('interface.kv')

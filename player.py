@@ -15,6 +15,7 @@ class Player():
         self.difficult = kwargs.get('difficult', '')
         self.name_brigade = kwargs.get('name_brigade', '')
         self.current_time_of_day = kwargs.get('current_time_of_day', 'day')
+        self.section_block = kwargs.get('section_block', [])
 
         # Статы
         self.health = kwargs.get('health', 100)
@@ -46,6 +47,7 @@ class Player():
             'post': self.post,
             'modifier': self.modifier,
             'popularity': self.popularity,
+            "section_block": self.section_block,
             'new_game': False}
 
         with open(current_player_json, 'w', encoding='utf-8') as db_file:
@@ -78,6 +80,7 @@ class Player():
         self.modifier = data['modifier']
         self.popularity = data['popularity']
         self.new_game = data['new_game']
+        self.section_block = data['section_block']
 
     def write_json(self):
         dict_player = {
@@ -97,6 +100,7 @@ class Player():
             'post': self.post,
             'modifier': self.modifier,
             'popularity': self.popularity,
+            'section_block': self.section_block,
             'new_game': False}
 
         with open(current_player_json, 'w', encoding='utf-8') as db_file:
