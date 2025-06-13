@@ -10,10 +10,14 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.properties import DictProperty
 from kivy.clock import Clock
+from kivy.uix.image import Image
+from kivy.core.image import Image as CoreImage
 from kivy.metrics import dp
 from functools import partial
+from kivy.graphics import Rectangle
 import player
 import shop
+import generate_modifiers as gm
 
 #При запускае игры читаем данные игрока и создаем объект под данным из файла
 main_player = player.Player()
@@ -260,38 +264,55 @@ class CustomButton(Button):
                 issue = element
                 text_message = element['Текст']
                 break
+        self.changes(issue, self.screen)
+        change_dict = issue.get('Изменения', {})
+        # Создаём копию, чтобы не менять оригинал
+        change_dict_copy = change_dict.copy()
+        # Удаляем ключ "Деньги", если он есть
+        if "Деньги" in change_dict_copy:
+            del change_dict_copy["Деньги"]
+        img_change = gm.generate_or_get_modifier_image(change_dict_copy)
         if issue.get('Оповещение', False):
-            show_warning(issue['Текст'])
+            show_warning(issue['Текст'], img_change)
         if issue.get('Модификатор'):
             modifier = issue['Модификатор']
             add_modifier(main_player, modifier)
         if issue.get('БлокировкаРазделов'):
             list_section = issue['БлокировкаРазделов']
             add_section_block(main_player, list_section)
-        self.changes(issue, self.screen)
         self.screen.update_text()
 
     def changes(self, issue, screen):
-        for i in issue['Изменения']:
-            if i == 'Голод':
-                main_player.hunger = main_player.hunger + int(issue['Изменения']['Голод'])
-            elif i == 'Настроение':
-                main_player.mood = main_player.mood + int(issue['Изменения']['Настроение'])
-            elif i == 'Здоровье':
-                main_player.health = main_player.health + int(issue['Изменения']['Здоровье'])
-            elif i == 'Деньги':
-                main_player.money = main_player.money + int(issue['Изменения']['Деньги'])
-            elif i == 'СуперДеньги':
-                main_player.special_money = main_player.special_money + int(issue['Изменения']['СуперДеньги'])
-            elif i == 'Популярность':
-                main_player.popularity = main_player.popularity + int(issue['Изменения']['Популярность'])
+        """Применяет изменения к игроку из словаря issue['Изменения']."""
+        changes_dict = issue.get('Изменения', {})
 
+        # Словарь соответствий между ключами в JSON и атрибутами игрока
+        mapping = {
+            'Голод': 'hunger',
+            'Настроение': 'mood',
+            'Здоровье': 'health',
+            'Деньги': 'money',
+            'СуперДеньги': 'special_money',
+            'Популярность': 'popularity'
+        }
+
+        for key in changes_dict:
+            attr_name = mapping.get(key)
+            value = int(changes_dict[key])
+            current_value = getattr(main_player, attr_name)
+            setattr(main_player, attr_name, current_value + value)
+
+class TextWrapper(BoxLayout):
+    def __init__(self, text='', **kwargs):
+        super().__init__(**kwargs)
+        self.orientation = 'vertical'
+        wrap_text(self, text)
 
 class WindowManager(ScreenManager):
     pass
 
 
-def show_warning(text_warning):
+def show_warning(text_warning, name_image=''):
     btn_close = Button(text='', size_hint_y=0.2,
                        background_normal='Images/answers/clear/button_normal.png',
                        background_down='Images/answers/clear/button_press.png')
@@ -301,11 +322,8 @@ def show_warning(text_warning):
                   background='Images/popup/popup_normal.png',
                   auto_dismiss=False)
     popup.separator_color = (1, 1, 1, 0)
-    lb = Label(text=text_warning,
-               font_name='fonts/EpilepsySansBold.ttf',
-               font_size=60,
-               halign='center',
-               text_size=(700, None))
+    image_part = f'|img={name_image}|' if name_image else ''
+    lb = TextWrapper(text=text_warning+image_part)
     bx.add_widget(lb)
     bx.add_widget(btn_close)
     popup.add_widget(bx)
@@ -319,6 +337,24 @@ def update_basic_attributes(screen):
     screen.ids['text_mood'].text = str(main_player.mood)
     screen.ids['text_populyarity'].text = str(main_player.popularity)
     screen.ids['text_supermoney'].text = str(main_player.special_money)
+
+def wrap_text(target, source):
+    if not source:
+        return  # Если source пустой или None — выходим
+
+    parts = source.split('|')
+    for part in parts:
+        if part.startswith('img='):
+            img_path = part[4:]
+            if not img_path or img_path == '.png':  # Пропускаем, если путь пустой или 'img=.png'
+                continue
+            target.add_widget(Image(source=img_path))
+        elif part:  # Только непустые текстовые части
+            target.add_widget(Label(
+                text=part,
+                font_name='fonts/EpilepsySansBold.ttf',
+                font_size=60
+            ))
 
 def check_player(main_player):
     check_modifier(main_player)
