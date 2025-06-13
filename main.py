@@ -10,6 +10,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.properties import DictProperty
 from kivy.clock import Clock
+from kivy.metrics import dp
 from functools import partial
 import player
 import shop
@@ -197,6 +198,8 @@ class ShopGameWindow(Screen):
                 btn = {'text': '',
                        'player_image': self.ids['player_image'],
                        'screen': self,
+                       'size_hint_y': None,
+                       'height': dp(100),
                        'section': section,
                        'img_animation': button.img_animation,
                        'issue': button.issue,
@@ -210,7 +213,7 @@ class ShopGameWindow(Screen):
                 list_btn.append(btn)
             list_button[section] = list_btn
         main_shop.screen_btn = list_button
-        self.ids['listButtonView'].data = main_shop.screen_btn['product']
+        self.ids['listButtonView'].data = main_shop.screen_btn[section]
 
     def update_data(self, rect_back):
         self.update_text()
@@ -235,6 +238,10 @@ class ShopGameWindow(Screen):
 
 
 class CustomButton(Button):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.size_hint_y = None
+        self.height = dp(80)
     def on_release(self, *args, **kwargs):
         if is_section_blocked(main_player, self.section):
             show_warning('Вам сегодня не доступна данная покупка')

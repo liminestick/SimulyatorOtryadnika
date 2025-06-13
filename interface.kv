@@ -531,6 +531,7 @@ WindowManager:
                 Button:
                     background_normal: 'Images/buttons/shop/chapter/attribute/button_normal.png'
                     background_down: 'Images/buttons/shop/chapter/attribute/button_press.png'
+                    on_release: root.changing_section('attribute')
                 Button:
                     background_normal: 'Images/buttons/shop/chapter/quest/button_normal.png'
                     background_down: 'Images/buttons/shop/chapter/quest/button_press.png'
@@ -545,12 +546,11 @@ WindowManager:
                 RecycleView:
                     id:listButtonView
                     viewclass: 'CustomButton'
-                    #pos_hint:{'center_x': 0.5,'center_y': 0.5}
                     RecycleBoxLayout:
                         default_size: None, dp(56)
-                        default_size_hint: 1, 1
+                        default_size_hint: 1, None
                         size_hint_y: None
-                        height: dp(1400)
+                        height: self.minimum_height
                         orientation: 'vertical'
 
 

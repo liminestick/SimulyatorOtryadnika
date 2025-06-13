@@ -148,6 +148,7 @@
     "Стоимость": "20₽",
     "КартинкаНормальная": "Images/buttons/shop/chapter/pharmacy/university/button_normal.png",
     "КартинкаНажата": "Images/buttons/shop/chapter/pharmacy/university/button_press.png",
+    "Анимация": "Images/gif/actions/PlayerPlusHealth.zip",
     "Исход1":{
       "Текст": "Игрок восстанавливает 14 очков здоровья",
       "Вероятность": 70,
@@ -190,8 +191,9 @@
     "Принадлежность": ["ССО", "СПО", "СОП"],
     "Должность": ["Кандидат", "Боец", "Командир", "Комиссар", "Мастер"],
     "Стоимость": "25₽",
-    "КартинкаНормальная": "",
-    "КартинкаНажата": "",
+    "КартинкаНормальная": "Images/buttons/shop/chapter/pharmacy/town_hospital/button_normal.png",
+    "КартинкаНажата": "Images/buttons/shop/chapter/pharmacy/town_hospital/button_press.png",
+    "Анимация": "Images/gif/actions/PlayerPlusHealth.zip",
     "Исход1":{
       "Текст": "Игрок восстанавливает 20 здоровья",
       "Вероятность": 80,
@@ -235,8 +237,9 @@
     "Принадлежность": ["ССО", "СПО", "СОП"],
     "Должность": ["Кандидат", "Боец", "Командир", "Комиссар", "Мастер"],
     "Стоимость": "30₽",
-    "КартинкаНормальная": "",
-    "КартинкаНажата": "",
+    "КартинкаНормальная": "Images/buttons/shop/chapter/pharmacy/Invite_medic/button_normal.png",
+    "КартинкаНажата": "Images/buttons/shop/chapter/pharmacy/Invite_medic/button_press.png",
+    "Анимация": "Images/gif/actions/PlayerPlusHealth.zip",
     "Исход1":{
       "Текст": "Игрок восстанавливает 24 очков здоровья",
       "Вероятность": 59,
@@ -284,13 +287,14 @@
       }
     }
   },
-  "КупитьКомплексЛекарств": {
+  "КомплексЛекарств": {
     "Сложности": ["Легко", "Нормально", "Сложно"],
     "Принадлежность": ["ССО", "СПО", "СОП"],
     "Должность": ["Кандидат", "Боец", "Командир", "Комиссар", "Мастер"],
     "Стоимость": "33₽",
-    "КартинкаНормальная": "",
-    "КартинкаНажата": "",
+    "КартинкаНормальная": "Images/buttons/shop/chapter/pharmacy/complex_medicine/button_normal.png",
+    "КартинкаНажата": "Images/buttons/shop/chapter/pharmacy/complex_medicine/button_press.png",
+    "Анимация": "Images/gif/actions/PlayerPlusHealth.zip",
     "Исход1":{
       "Текст": "Игрок восстанавливает 30 очков здоровья",
       "Вероятность": 70,
@@ -345,8 +349,9 @@
     "Принадлежность": ["ССО", "СПО", "СОП"],
     "Должность": ["Кандидат", "Боец", "Командир", "Комиссар", "Мастер"],
     "Стоимость": "42₽",
-    "КартинкаНормальная": "",
-    "КартинкаНажата": "",
+    "КартинкаНормальная": "Images/buttons/shop/chapter/pharmacy/expensive_hospital/button_normal.png",
+    "КартинкаНажата": "Images/buttons/shop/chapter/pharmacy/expensive_hospital/button_press.png",
+    "Анимация": "Images/gif/actions/PlayerPlusHealth.zip",
     "Исход1":{
       "Текст": "При покупке игрок восстанавливает 60 очков здоровья от не хватающих очков здоровья (максимум 100) с округлением в меньшую сторону",
       "Вероятность": 60,
