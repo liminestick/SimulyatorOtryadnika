@@ -11,19 +11,17 @@ from kivy.uix.label import Label
 from kivy.properties import DictProperty
 from kivy.clock import Clock
 from kivy.uix.image import Image
-from kivy.core.image import Image as CoreImage
 from kivy.metrics import dp
 from functools import partial
-from kivy.graphics import Rectangle
 import player
 import shop
 import generate_modifiers as gm
 
-#При запускае игры читаем данные игрока и создаем объект под данным из файла
+# При запуске игры читаем данные игрока и создаем объект под данным из файла
 main_player = player.Player()
 main_player.read_json()
 
-#При запуске игры собираем магазин и создаем объект магазина
+# При запуске игры собираем магазин и создаем объект магазина
 main_shop = shop.Shop()
 main_shop.create_shop()
 
@@ -302,11 +300,13 @@ class CustomButton(Button):
             current_value = getattr(main_player, attr_name)
             setattr(main_player, attr_name, current_value + value)
 
+
 class TextWrapper(BoxLayout):
     def __init__(self, text='', **kwargs):
         super().__init__(**kwargs)
         self.orientation = 'vertical'
         wrap_text(self, text)
+
 
 class WindowManager(ScreenManager):
     pass
@@ -330,6 +330,7 @@ def show_warning(text_warning, name_image=''):
     btn_close.bind(on_press=popup.dismiss)
     popup.open()
 
+
 def update_basic_attributes(screen):
     screen.ids['text_health'].text = str(main_player.health)
     screen.ids['text_hunger'].text = str(main_player.hunger)
@@ -337,6 +338,7 @@ def update_basic_attributes(screen):
     screen.ids['text_mood'].text = str(main_player.mood)
     screen.ids['text_populyarity'].text = str(main_player.popularity)
     screen.ids['text_supermoney'].text = str(main_player.special_money)
+
 
 def wrap_text(target, source):
     if not source:
@@ -348,22 +350,29 @@ def wrap_text(target, source):
             img_path = part[4:]
             if not img_path or img_path == '.png':  # Пропускаем, если путь пустой или 'img=.png'
                 continue
-            target.add_widget(Image(source=img_path))
+            target.add_widget(Image(source=img_path,
+                                    pos_hint={'center_x': 0.5, 'center_y': 0.5}))
         elif part:  # Только непустые текстовые части
             target.add_widget(Label(
                 text=part,
                 font_name='fonts/EpilepsySansBold.ttf',
-                font_size=60
+                font_size=60,
+                text_size=(700, None),
+                halign='center'
             ))
+
 
 def check_player(main_player):
     check_modifier(main_player)
 
+
 def check_block(main_player):
     main_player.section_block.clear()
 
+
 def is_section_blocked(main_player, section_name):
     return section_name in main_player.section_block
+
 
 def check_modifier(main_player):
     i = 0
@@ -393,6 +402,7 @@ def check_modifier(main_player):
 
         i += 1  # переходим к следующему модификатору
 
+
 def add_modifier(main_player, modifier):
     # Получаем шаблон модификатора из общего словаря
     new_modifier = dict_mod[modifier]
@@ -411,12 +421,13 @@ def add_modifier(main_player, modifier):
     # Добавляем копию модификатора, чтобы не изменять оригинал в dict_mod
     main_player.modifier.append(new_modifier.copy())
 
+
 def add_section_block(main_player, list_section):
     main_player.section_block += list_section
 
 
-
 kv = Builder.load_file('interface.kv')
+
 
 class MyApp(App):
     def build(self):

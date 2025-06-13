@@ -10,9 +10,9 @@ TEMP_DIR = "Images/temp"
 SPACING_X = 20     # Отступ между иконкой и текстом
 ROW_SPACING_Y = 20 # Отступ между строками
 MAX_ICONS_PER_ROW = 2
-ICON_SIZE = (48, 48)
+ICON_SIZE = (90, 90)
 TEXT_COLOR = (255, 255, 255)  # Белый цвет текста
-FONT_SIZE = 36
+FONT_SIZE = 72
 
 # Соответствие слов -> иконок
 ICON_MAP = {
